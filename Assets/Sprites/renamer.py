@@ -2,10 +2,10 @@ import os
 
 rep = (
     'John',
-    'Hector',
+    'Greg',
 )
 
-folder = 'YellowGhost'
+folder = 'RedGhost'
 
 for path, dirs, files in os.walk(folder):
     for file in files:
