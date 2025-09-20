@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7b2b1c4668b368040b9acb27b3970e70
+guid: 2548a78438765304bbc4230eff4b4a03
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638940060126061330
+  platformSettingsDirtyTick: 638939955230102913
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,7 +121,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: HectorScaredLeft_Frame_0
+  - name: SamUp_Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -130,9 +130,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 10
+      width: 14
       height: 16
-    spriteID: 1114daf12b1f47244b9b38dd5ab43b3b
+    spriteID: a54adcf998d742046ab2478daab80115
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,7 +141,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: HectorScaredLeft_Frame_1
+  - name: SamUp_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -150,9 +150,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 28
-      width: 10
+      width: 14
       height: 16
-    spriteID: 99562896a8a84c24eb39ed4ead6c183a
+    spriteID: 3d80758c2792aa944bf8d06cfbc25992
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -164,28 +164,28 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 72144398
-    name: HectorScaredLeft
+    guid: 1728862208
+    name: SamUp
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: HectorScaredLeft_Frame_0
+    - name: SamUp_Frame_0
       frameIndex: 0
       cellRect:
-        x: 3
+        x: 1
         y: 0
-        width: 10
+        width: 14
         height: 16
-      spriteId: 1114daf12b1f47244b9b38dd5ab43b3b
-    - name: HectorScaredLeft_Frame_1
+      spriteId: a54adcf998d742046ab2478daab80115
+    - name: SamUp_Frame_1
       frameIndex: 1
       cellRect:
-        x: 3
+        x: 1
         y: 0
-        width: 10
+        width: 14
         height: 16
-      spriteId: 99562896a8a84c24eb39ed4ead6c183a
+      spriteId: 3d80758c2792aa944bf8d06cfbc25992
     linkedCells: []
     parentIndex: -1
   platformSettings:
