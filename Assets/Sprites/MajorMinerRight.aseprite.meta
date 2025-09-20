@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b437a84f0b57af548bbc28b2a0333fc3
+guid: c1f23f0896ff2e54e8239b380c152b2c
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: lightning_16x
+  - name: MajorMinerRight_Frame_0
     originalName: 
-    pivot: {x: 0.44444445, y: -0.071428575}
+    pivot: {x: 0.4166667, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 9
-      height: 14
-    spriteID: 53eaf3d495cf6d7439ab7817464a2e1c
+      width: 12
+      height: 16
+    spriteID: 552bec469d285544294eb83f902f26dd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,23 +141,51 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: MajorMinerRight_Frame_1
+    originalName: 
+    pivot: {x: 0.4166667, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 28
+      width: 12
+      height: 16
+    spriteID: bc381c5d691e3a94e97e8621f11eed37
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 28}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -65791258
-    name: lightning_16x
+    guid: -2085218380
+    name: MajorMinerRight
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: lightning_16x
+    - name: MajorMinerRight_Frame_0
       frameIndex: 0
       cellRect:
-        x: 4
-        y: 1
-        width: 9
-        height: 14
-      spriteId: 53eaf3d495cf6d7439ab7817464a2e1c
+        x: 3
+        y: 0
+        width: 12
+        height: 16
+      spriteId: 552bec469d285544294eb83f902f26dd
+    - name: MajorMinerRight_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 3
+        y: 0
+        width: 12
+        height: 16
+      spriteId: bc381c5d691e3a94e97e8621f11eed37
     linkedCells: []
     parentIndex: -1
   platformSettings:

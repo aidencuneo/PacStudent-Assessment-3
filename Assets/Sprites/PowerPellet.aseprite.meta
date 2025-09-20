@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c1f23f0896ff2e54e8239b380c152b2c
+guid: b437a84f0b57af548bbc28b2a0333fc3
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: digman_16x
+  - name: PowerPellet
     originalName: 
-    pivot: {x: 0.4166667, y: 0}
+    pivot: {x: 0.44444445, y: -0.071428575}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 12
-      height: 16
-    spriteID: 478879147a3ec5e4db9523cef7fc6e14
+      width: 9
+      height: 14
+    spriteID: 8669e0f97291c874fbc60f070da9b11b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,51 +141,23 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: digman_16x_Frame_1
-    originalName: 
-    pivot: {x: 0.4166667, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 28
-      width: 12
-      height: 16
-    spriteID: e77f79914097ed14c89ba11944d4b33c
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 28}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -236955940
-    name: digman_16x
+    guid: -288430433
+    name: PowerPellet
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: digman_16x_Frame_0
+    - name: PowerPellet
       frameIndex: 0
       cellRect:
-        x: 3
-        y: 0
-        width: 12
-        height: 16
-      spriteId: 478879147a3ec5e4db9523cef7fc6e14
-    - name: digman_16x_Frame_1
-      frameIndex: 1
-      cellRect:
-        x: 3
-        y: 0
-        width: 12
-        height: 16
-      spriteId: e77f79914097ed14c89ba11944d4b33c
+        x: 4
+        y: 1
+        width: 9
+        height: 14
+      spriteId: 8669e0f97291c874fbc60f070da9b11b
     linkedCells: []
     parentIndex: -1
   platformSettings:
