@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 64a41cb09cb3bd94e8fa864569c74c23
+guid: 3113b20e3e182104db5519706f968933
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 4
       width: 10
       height: 16
-    spriteID: 21db2a229a1d5884e98e66dbaf2122d8
+    spriteID: 6d330f58355c2024e901ba931360fc5e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 28
       width: 10
       height: 16
-    spriteID: 030e2bdb960b3724ea01aff654c70e38
+    spriteID: 5059c1a9a91c87a48846683022379d42
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -177,7 +177,7 @@ ScriptedImporter:
         y: 0
         width: 10
         height: 16
-      spriteId: 21db2a229a1d5884e98e66dbaf2122d8
+      spriteId: 6d330f58355c2024e901ba931360fc5e
     - name: HectorRight_Frame_1
       frameIndex: 1
       cellRect:
@@ -185,7 +185,7 @@ ScriptedImporter:
         y: 0
         width: 10
         height: 16
-      spriteId: 030e2bdb960b3724ea01aff654c70e38
+      spriteId: 5059c1a9a91c87a48846683022379d42
     linkedCells: []
     parentIndex: -1
   platformSettings:

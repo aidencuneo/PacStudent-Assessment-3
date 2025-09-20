@@ -123,14 +123,14 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: JohnDeadDown_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.33333334, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 8
+      width: 12
       height: 16
     spriteID: 576a4b6443a5b914dbe571388821e451
     spriteBone: []
@@ -143,14 +143,14 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: JohnDeadDown_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.33333334, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 20
-      y: 4
-      width: 8
+      x: 4
+      y: 28
+      width: 12
       height: 16
     spriteID: 5da4b35789f8ac54185058282d20eb47
     spriteBone: []
@@ -160,7 +160,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 20, y: 4}
+    uvTransform: {x: 4, y: 28}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -175,7 +175,7 @@ ScriptedImporter:
       cellRect:
         x: 4
         y: 0
-        width: 8
+        width: 12
         height: 16
       spriteId: 576a4b6443a5b914dbe571388821e451
     - name: JohnDeadDown_Frame_1
@@ -183,7 +183,7 @@ ScriptedImporter:
       cellRect:
         x: 4
         y: 0
-        width: 8
+        width: 12
         height: 16
       spriteId: 5da4b35789f8ac54185058282d20eb47
     linkedCells: []

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c2df566f11a5fcb439939d4d98ec80f4
+guid: d529483ef5354c74baa8d9b4868618ca
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 16
+    spritePixelsToUnits: 100
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638939955230102913
+  platformSettingsDirtyTick: 0
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 4
       width: 10
       height: 16
-    spriteID: 70a6970e68513c949ba24129bcd5acab
+    spriteID: 868d36a2c9bdf5146bdc9e7db52c4ef7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 28
       width: 10
       height: 16
-    spriteID: 5d66c27dc9f22b440a8ee3150af8b2b1
+    spriteID: 68ba120fed285cc48ae512625c43946e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -177,7 +177,7 @@ ScriptedImporter:
         y: 0
         width: 10
         height: 16
-      spriteId: 70a6970e68513c949ba24129bcd5acab
+      spriteId: 868d36a2c9bdf5146bdc9e7db52c4ef7
     - name: HectorLeft_Frame_1
       frameIndex: 1
       cellRect:
@@ -185,34 +185,10 @@ ScriptedImporter:
         y: 0
         width: 10
         height: 16
-      spriteId: 5d66c27dc9f22b440a8ee3150af8b2b1
+      spriteId: 68ba120fed285cc48ae512625c43946e
     linkedCells: []
     parentIndex: -1
-  platformSettings:
-  - name: DefaultTexturePlatform
-    overridden: 0
-    ignorePlatformSupport: 0
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
-  - name: Standalone
-    overridden: 0
-    ignorePlatformSupport: 0
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
+  platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 

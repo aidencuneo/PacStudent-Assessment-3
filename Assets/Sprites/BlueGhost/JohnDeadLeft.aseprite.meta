@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 54873e50a207ff548bcd8eaf5e66dbda
+guid: fc7c3db61d7594f4cb1c9c1f6ebb8939
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,16 +123,16 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: JohnDeadLeft_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.61538464, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 10
+      width: 13
       height: 16
-    spriteID: 0726dc14a64f4fa4e8d18a8f53c2df36
+    spriteID: 7a063ac1cbebcf34b9cb89fb1f12fa54
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -143,16 +143,16 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: JohnDeadLeft_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.61538464, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 28
-      width: 10
+      width: 13
       height: 16
-    spriteID: 05df9fc30b3ddfd49a7c9d2904387918
+    spriteID: 97465a8d0f0aeb440acf4f5176a93d7b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -173,19 +173,19 @@ ScriptedImporter:
     - name: JohnDeadLeft_Frame_0
       frameIndex: 0
       cellRect:
-        x: 3
+        x: 0
         y: 0
-        width: 10
+        width: 13
         height: 16
-      spriteId: 0726dc14a64f4fa4e8d18a8f53c2df36
+      spriteId: 7a063ac1cbebcf34b9cb89fb1f12fa54
     - name: JohnDeadLeft_Frame_1
       frameIndex: 1
       cellRect:
-        x: 3
+        x: 0
         y: 0
-        width: 10
+        width: 13
         height: 16
-      spriteId: 05df9fc30b3ddfd49a7c9d2904387918
+      spriteId: 97465a8d0f0aeb440acf4f5176a93d7b
     linkedCells: []
     parentIndex: -1
   platformSettings:

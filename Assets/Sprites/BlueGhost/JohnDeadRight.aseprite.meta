@@ -123,14 +123,14 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: JohnDeadRight_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.3846154, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 10
+      width: 13
       height: 16
     spriteID: 284e1a33b1072c74c9720bf00a4802f8
     spriteBone: []
@@ -143,14 +143,14 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: JohnDeadRight_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.3846154, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 28
-      width: 10
+      width: 13
       height: 16
     spriteID: 256d9c7906229b346aca9e59e4a0a1f1
     spriteBone: []
@@ -175,7 +175,7 @@ ScriptedImporter:
       cellRect:
         x: 3
         y: 0
-        width: 10
+        width: 13
         height: 16
       spriteId: 284e1a33b1072c74c9720bf00a4802f8
     - name: JohnDeadRight_Frame_1
@@ -183,7 +183,7 @@ ScriptedImporter:
       cellRect:
         x: 3
         y: 0
-        width: 10
+        width: 13
         height: 16
       spriteId: 256d9c7906229b346aca9e59e4a0a1f1
     linkedCells: []

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 184bcd1396b95f94a8fdc59542881e9a
+guid: e7788b61171cf2d4bb82bfa85c6d04d2
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 16
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 0
+  platformSettingsDirtyTick: 638939955230102913
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: HectorUp_Frame_0
+  - name: HectorDeadRight_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.3846154, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 8
+      width: 13
       height: 16
-    spriteID: a389e045c945271419703f01df3d0eec
+    spriteID: c945e8c34511e424e9ccbc52870ce2d9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,18 +141,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: HectorUp_Frame_1
+  - name: HectorDeadRight_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.3846154, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 20
-      y: 4
-      width: 8
+      x: 4
+      y: 28
+      width: 13
       height: 16
-    spriteID: d45130f6d97df85429332f8fb816784b
+    spriteID: 33989eee870c4474c99fc5953b6505ac
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -160,35 +160,59 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 20, y: 4}
+    uvTransform: {x: 4, y: 28}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 315200858
-    name: HectorUp
+    guid: 1341749191
+    name: HectorDeadRight
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: HectorUp_Frame_0
+    - name: HectorDeadRight_Frame_0
       frameIndex: 0
       cellRect:
-        x: 4
+        x: 3
         y: 0
-        width: 8
+        width: 13
         height: 16
-      spriteId: a389e045c945271419703f01df3d0eec
-    - name: HectorUp_Frame_1
+      spriteId: c945e8c34511e424e9ccbc52870ce2d9
+    - name: HectorDeadRight_Frame_1
       frameIndex: 1
       cellRect:
-        x: 4
+        x: 3
         y: 0
-        width: 8
+        width: 13
         height: 16
-      spriteId: d45130f6d97df85429332f8fb816784b
+      spriteId: 33989eee870c4474c99fc5953b6505ac
     linkedCells: []
     parentIndex: -1
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 

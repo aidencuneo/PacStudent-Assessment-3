@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 4
       width: 8
       height: 16
-    spriteID: c9e79b0f60415944cac4b398568a9621
+    spriteID: 5d6d642350eddd948abf252be883d708
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 4
       width: 8
       height: 16
-    spriteID: 75c39b08a736b89409fe88160c7b5f9f
+    spriteID: ab852dce442083f4c9c710333ab25263
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -177,7 +177,7 @@ ScriptedImporter:
         y: 0
         width: 8
         height: 16
-      spriteId: c9e79b0f60415944cac4b398568a9621
+      spriteId: 5d6d642350eddd948abf252be883d708
     - name: HectorDown_Frame_1
       frameIndex: 1
       cellRect:
@@ -185,7 +185,7 @@ ScriptedImporter:
         y: 0
         width: 8
         height: 16
-      spriteId: 75c39b08a736b89409fe88160c7b5f9f
+      spriteId: ab852dce442083f4c9c710333ab25263
     linkedCells: []
     parentIndex: -1
   platformSettings:
