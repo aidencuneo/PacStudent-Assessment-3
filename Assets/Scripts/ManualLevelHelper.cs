@@ -34,6 +34,6 @@ public class ManualLevelHelper : MonoBehaviour
         for (int y = 0; y < levelMap.GetLength(0); y++)
             for (int x = 0; x < levelMap.GetLength(1); x++)
                 if (prefabs[levelMap[y, x]])
-                    Instantiate(prefabs[levelMap[y, x]]).transform.position = new(x, y);
+                    Instantiate(prefabs[levelMap[y, x]]).transform.position = new(x, -y);
     }
 }

@@ -123,15 +123,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: DoubleCorner
     originalName: 
-    pivot: {x: 0.33333334, y: 0.6666667}
+    pivot: {x: 0.27272728, y: 0.72727275}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 12
-      height: 12
+      width: 11
+      height: 11
     spriteID: f0a9b94c52fde0847998b5b3d3304fb2
     spriteBone: []
     spriteOutline: []
@@ -153,10 +153,10 @@ ScriptedImporter:
     - name: DoubleCorner
       frameIndex: 0
       cellRect:
-        x: 4
+        x: 5
         y: 0
-        width: 12
-        height: 12
+        width: 11
+        height: 11
       spriteId: f0a9b94c52fde0847998b5b3d3304fb2
     linkedCells: []
     parentIndex: -1

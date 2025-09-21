@@ -123,14 +123,14 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: SingleCorner
     originalName: 
-    pivot: {x: 0.05882353, y: 0.8888889}
+    pivot: {x: 0.11111111, y: 0.8888889}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 17
+      width: 9
       height: 9
     spriteID: 829025fac672c6547a22eb3ed5c2c5a7
     spriteBone: []
@@ -155,7 +155,7 @@ ScriptedImporter:
       cellRect:
         x: 7
         y: 0
-        width: 17
+        width: 9
         height: 9
       spriteId: 829025fac672c6547a22eb3ed5c2c5a7
     linkedCells: []
