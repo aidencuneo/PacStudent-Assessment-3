@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0c4411ff136244c4caacb97f6211f6e8
+guid: 8a3521ea987bb4a4f8d91148171ff9c2
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638940533555639119
+  platformSettingsDirtyTick: 638940066776048246
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: LifeIndicator
+  - name: TJunctionWall
     originalName: 
-    pivot: {x: 0.5, y: 0.54545456}
+    pivot: {x: 0.33333334, y: 0.6666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 14
-      height: 11
-    spriteID: ee2ae4482e558e0418f121d437118f86
+      width: 12
+      height: 12
+    spriteID: f53c2711bbffbf54aa923fef6a7320a3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,20 +144,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1178754021
-    name: LifeIndicator
+    guid: -807626006
+    name: TJunctionWall
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: LifeIndicator
+    - name: TJunctionWall
       frameIndex: 0
       cellRect:
-        x: 1
-        y: 2
-        width: 14
-        height: 11
-      spriteId: ee2ae4482e558e0418f121d437118f86
+        x: 4
+        y: 0
+        width: 12
+        height: 12
+      spriteId: f53c2711bbffbf54aa923fef6a7320a3
     linkedCells: []
     parentIndex: -1
   platformSettings:

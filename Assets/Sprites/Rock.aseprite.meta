@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0c4411ff136244c4caacb97f6211f6e8
+guid: 5e6cf78728d4fd741aa7fec665247653
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: LifeIndicator
+  - name: Rock
     originalName: 
-    pivot: {x: 0.5, y: 0.54545456}
+    pivot: {x: 0.5, y: 0.5555556}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 14
-      height: 11
-    spriteID: ee2ae4482e558e0418f121d437118f86
+      width: 10
+      height: 9
+    spriteID: af10f4a09c7cd044b945f0ef1307f6a6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,20 +144,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1178754021
-    name: LifeIndicator
+    guid: 419320357
+    name: Rock
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: LifeIndicator
+    - name: Rock
       frameIndex: 0
       cellRect:
-        x: 1
-        y: 2
-        width: 14
-        height: 11
-      spriteId: ee2ae4482e558e0418f121d437118f86
+        x: 3
+        y: 3
+        width: 10
+        height: 9
+      spriteId: af10f4a09c7cd044b945f0ef1307f6a6
     linkedCells: []
     parentIndex: -1
   platformSettings:

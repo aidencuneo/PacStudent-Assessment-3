@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0c4411ff136244c4caacb97f6211f6e8
+guid: 4e3d3b8229e1c1746a4a92a8a5f064e2
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,7 +121,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: LifeIndicator
+  - name: Diamond
     originalName: 
     pivot: {x: 0.5, y: 0.54545456}
     alignment: 9
@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 4
       width: 14
       height: 11
-    spriteID: ee2ae4482e558e0418f121d437118f86
+    spriteID: 3acb7059891a3e9459a18b10a7d00ced
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,20 +144,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1178754021
-    name: LifeIndicator
+    guid: -1451425762
+    name: Diamond
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: LifeIndicator
+    - name: Diamond
       frameIndex: 0
       cellRect:
         x: 1
         y: 2
         width: 14
         height: 11
-      spriteId: ee2ae4482e558e0418f121d437118f86
+      spriteId: 3acb7059891a3e9459a18b10a7d00ced
     linkedCells: []
     parentIndex: -1
   platformSettings:
