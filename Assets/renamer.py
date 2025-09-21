@@ -1,11 +1,11 @@
 import os
 
 rep = (
-    'John',
-    'Sam',
+    '_Clip.anim',
+    '.anim',
 )
 
-folder = 'PinkGhost'
+folder = 'Animations'
 
 for path, dirs, files in os.walk(folder):
     for file in files:
