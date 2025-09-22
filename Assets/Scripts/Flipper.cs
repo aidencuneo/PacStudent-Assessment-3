@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Flipper : MonoBehaviour
 {
+    // This script acts as a helper for generating the manual level layout
+    // First, I run ManualLevelHelper to generate the top left corner, then I manually rotate the
+    // pieces correctly, and finally, I run this script to flip it across the x or y axis
+
     public Transform otherTransform;
 
     void Start()
