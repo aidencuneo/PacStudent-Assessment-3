@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -213,8 +212,8 @@ public class LevelGenerator : MonoBehaviour
                 else if (left != 2)
                     spaceIndex = 3;
 
-                // Otherwise, the default rotation will be 270
-                return 270 - (spaceIndex) * 90;
+                // Determine rotation based on index
+                return 270 - spaceIndex * 90;
             }
         }
 
@@ -230,11 +229,21 @@ public class LevelGenerator : MonoBehaviour
         // Get the types of each von neumann neighbour
         var (top, right, bottom, left) = GetVonNeumannNeighbours(x, y);
 
+        // Space on top and double wall on right
+        if (rot == 270 && right == 2)
+            obj.localScale = new(-obj.localScale.x, obj.localScale.y, 1); // Flip horizontally
+
         // Space on left and double wall on top (on the right, relative to the space)
-        if (rot == 0 && top == 2)
-        {
-            obj.localScale = new(obj.localScale.x, -obj.localScale.y, obj.localScale.z);
-        }
+        else if (rot == 0 && top == 2)
+            obj.localScale = new(obj.localScale.x, -obj.localScale.y, 1); // Flip vertically
+
+        // Space on bottom and double wall on left (on the right, relative to the space)
+        else if (rot == 90 && left == 2)
+            obj.localScale = new(-obj.localScale.x, obj.localScale.y, 1); // Flip horizontally
+
+        // Space on right and double wall on bottom (on the right, relative to the space)
+        else if (rot == 180 && bottom == 2)
+            obj.localScale = new(obj.localScale.x, -obj.localScale.y, 1); // Flip vertically
     }
 
     void ClearLevel()
@@ -264,7 +273,7 @@ public class LevelGenerator : MonoBehaviour
                 // Determine its rotation
                 obj.rotation = Quaternion.Euler(0, 0, FindRotation(x, y));
 
-                // Flip T junctions sometimes
+                // Flip T junctions if needed
                 if (obj.name.Contains("Junction"))
                     TryFliPTJunction(obj, x, y);
             }
@@ -336,7 +345,7 @@ public class LevelGenerator : MonoBehaviour
 
             else if (child.name.Contains("Junction"))
             {
-                newChild.rotation = Quaternion.Euler(0, 0, child.rotation.z);
+                newChild.rotation = Quaternion.Euler(0, 0, -child.rotation.eulerAngles.z);
                 newChild.localScale = new(newChild.localScale.x, -newChild.localScale.y, 1);
             }
         }
