@@ -93,14 +93,14 @@ public class LevelGenerator : MonoBehaviour
         if (x < 0 || y < 0 || x >= levelMap.GetLength(1) || y >= levelMap.GetLength(0))
             return 0;
 
-        // The type of this object
+        // Type of this object
         int type = levelMap[y, x];
 
-        // The types of each von neumann neighbour
+        // Get the types of each von neumann neighbour
         var (top, right, bottom, left) = GetVonNeumannNeighbours(x, y);
 
-        // All corners and walls
-        if (type >= 1 && type <= 4 || type == 8)
+        // All corners and walls (including junctions)
+        if (type >= 1 && type <= 4 || type == 7 || type == 8)
         {
             // Merge together functionally similar pieces
             // (inside and outside, ghost exit walls and normal walls)
@@ -186,61 +186,55 @@ public class LevelGenerator : MonoBehaviour
                 else if (left == 1 && right == 1)
                     return 0;
             }
-        }
 
-        // T junctions
-        else if (type == 7)
-        {
-            // Treat other T junctions as single walls, since that's how they join visually
-            top = top == 7 ? 1 : top;
-            bottom = bottom == 7 ? 1 : bottom;
-            left = left == 7 ? 1 : left;
-            right = right == 7 ? 1 : right;
-
-            // It is assumed that there are three connecting walls: one double and two single
-
-            // Find connected double wall (index refers to number of clockwise turns from top)
-            int doubleIndex = -1;
-
-            if (top == 2)
-                doubleIndex = 0;
-            else if (right == 2)
-                doubleIndex = 1;
-            else if (bottom == 2)
-                doubleIndex = 2;
-            else if (left == 2)
-                doubleIndex = 3;
-
-            // Find empty space (specifically, the one that isn't a wall)
-            int spaceIndex = -1;
-
-            if (top != 2 && top != 4)
-                spaceIndex = 0;
-            else if (right != 2 && right != 4)
-                spaceIndex = 1;
-            else if (bottom != 2 && bottom != 4)
-                spaceIndex = 2;
-            else if (left != 2 && left != 4)
-                spaceIndex = 3;
-
-            // If space is one index above double wall (one clockwise turn)
-            if (spaceIndex == (doubleIndex + 1) % 4)
+            // T junctions
+            else if (type == 7)
             {
-                return 90 - (spaceIndex * 90);
-            }
+                // This method will only rotate the T junction correctly
+                // Another method will determine whether it needs to be flipped
 
-            // If space is one index below double wall (one anticlockwise turn)
-            else if (doubleIndex == (spaceIndex + 1) % 4)
-            {
-                return 90 - (doubleIndex * 90);
-            }
+                // Treat other T junctions as walls
+                top = top == 7 ? 2 : top;
+                bottom = bottom == 7 ? 2 : bottom;
+                left = left == 7 ? 2 : left;
+                right = right == 7 ? 2 : right;
 
-            // Otherwise, the default rotation will be 90
-            return 90;
+                // It is assumed that there are three connecting walls: one double and two single
+
+                // Find empty space (specifically, the one that isn't a wall)
+                int spaceIndex = -1; // Index refers to the number of clockwise turns from the top
+
+                if (top != 2)
+                    spaceIndex = 0;
+                else if (right != 2)
+                    spaceIndex = 1;
+                else if (bottom != 2)
+                    spaceIndex = 2;
+                else if (left != 2)
+                    spaceIndex = 3;
+
+                // Otherwise, the default rotation will be 270
+                return 270 - (spaceIndex) * 90;
+            }
         }
 
         // Default rotation for this piece
         return 0;
+    }
+
+    void TryFliPTJunction(Transform obj, int x, int y)
+    {
+        // Find space based on rotation, then find double wall
+        float rot = obj.rotation.eulerAngles.z;
+
+        // Get the types of each von neumann neighbour
+        var (top, right, bottom, left) = GetVonNeumannNeighbours(x, y);
+
+        // Space on left and double wall on top (on the right, relative to the space)
+        if (rot == 0 && top == 2)
+        {
+            obj.localScale = new(obj.localScale.x, -obj.localScale.y, obj.localScale.z);
+        }
     }
 
     void ClearLevel()
@@ -269,6 +263,10 @@ public class LevelGenerator : MonoBehaviour
 
                 // Determine its rotation
                 obj.rotation = Quaternion.Euler(0, 0, FindRotation(x, y));
+
+                // Flip T junctions sometimes
+                if (obj.name.Contains("Junction"))
+                    TryFliPTJunction(obj, x, y);
             }
     }
 
@@ -300,7 +298,7 @@ public class LevelGenerator : MonoBehaviour
 
             else if (child.name.Contains("Junction"))
             {
-                newChild.rotation = Quaternion.Euler(0, 0, -child.rotation.z);
+                newChild.rotation = Quaternion.Euler(0, 0, -child.rotation.eulerAngles.z);
                 newChild.localScale = new(-newChild.localScale.x, newChild.localScale.y, 1);
             }
         }
