@@ -6,6 +6,7 @@ using UnityEngine;
 public class PacStudentWalk : MonoBehaviour
 {
     public Animator animator;
+    public AudioSource audioSource;
     public float speed = 1;
 
     Vector2 startPos;
@@ -13,6 +14,7 @@ public class PacStudentWalk : MonoBehaviour
     Vector2 bottomPos; // Pos after moving down
     Vector2 leftPos; // Pos after moving left
     float time = 0;
+    int lastSoundPlayed = -1;
 
     void Awake()
     {
@@ -48,6 +50,13 @@ public class PacStudentWalk : MonoBehaviour
         {
             lerp = Vector2.LerpUnclamped(leftPos, startPos, (time - 5 - 4 - 5) / 4);
             animator.SetInteger("Direction", 3);
+        }
+
+        // Walk sound (also scales with speed variable)
+        if ((int) time != lastSoundPlayed)
+        {
+            audioSource.Play();
+            lastSoundPlayed = (int) time;
         }
 
         transform.position = lerp;
