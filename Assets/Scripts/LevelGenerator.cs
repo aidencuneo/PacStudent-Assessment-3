@@ -20,41 +20,23 @@ public class LevelGenerator : MonoBehaviour
     // 8 => ghost exit wall
 
     // Level map to generate (top left corner)
-    // int[,] levelMap =
-    // {
-    //     {1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7},
-    //     {2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4},
-    //     {2, 5, 3, 4, 4, 3, 5, 3, 4, 4, 4, 3, 5, 4},
-    //     {2, 6, 4, 0, 0, 4, 5, 4, 0, 0, 0, 4, 5, 4},
-    //     {2, 5, 3, 4, 4, 3, 5, 3, 4, 4, 4, 3, 5, 3},
-    //     {2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-    //     {2, 5, 3, 4, 4, 3, 5, 3, 3, 5, 3, 4, 4, 4},
-    //     {2, 5, 3, 4, 4, 3, 5, 4, 4, 5, 3, 4, 4, 3},
-    //     {2, 5, 5, 5, 5, 5, 5, 4, 4, 5, 5, 5, 5, 4},
-    //     {1, 2, 2, 2, 2, 1, 5, 4, 3, 4, 4, 3, 0, 4},
-    //     {0, 0, 0, 0, 0, 2, 5, 4, 3, 4, 4, 3, 0, 3},
-    //     {0, 0, 0, 0, 0, 2, 5, 4, 4, 0, 0, 0, 0, 0},
-    //     {0, 0, 0, 0, 0, 2, 5, 4, 4, 0, 3, 4, 4, 8},
-    //     {2, 2, 2, 2, 2, 1, 5, 3, 3, 0, 4, 0, 0, 0},
-    //     {0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 4, 0, 0, 0},
-    // };
-
-    int[,] levelMap = {
-        {1,2,2,2,2,2,2,2,2,2,2,2,2,7},
-        {2,5,5,5,5,5,5,5,5,5,5,5,5,4},
-        {2,5,5,3,3,5,5,5,5,5,5,5,5,4},
-        {2,5,5,4,3,4,3,5,5,5,5,5,5,4},
-        {2,5,5,4,0,0,4,5,5,5,5,5,5,3},
-        {2,5,5,4,0,0,4,5,5,5,5,5,5,5},
-        {2,5,5,3,4,3,4,5,5,5,5,5,5,5},
-        {2,5,5,5,5,3,3,5,5,5,5,5,5,3},
-        {2,5,5,5,5,5,5,5,5,5,5,5,5,4},
-        {2,5,5,5,5,5,5,3,4,4,4,3,0,4},
-        {1,2,2,2,2,1,5,4,3,4,4,3,0,3},
-        {0,0,0,0,0,2,5,4,4,0,0,0,0,0},
-        {0,0,0,0,0,2,5,4,4,0,3,4,4,8},
-        {2,2,2,2,2,1,5,3,3,0,4,0,0,0},
-        {0,0,0,0,0,0,5,0,0,0,4,0,0,0},
+    int[,] levelMap =
+    {
+        {1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7},
+        {2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4},
+        {2, 5, 3, 4, 4, 3, 5, 3, 4, 4, 4, 3, 5, 4},
+        {2, 6, 4, 0, 0, 4, 5, 4, 0, 0, 0, 4, 5, 4},
+        {2, 5, 3, 4, 4, 3, 5, 3, 4, 4, 4, 3, 5, 3},
+        {2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+        {2, 5, 3, 4, 4, 3, 5, 3, 3, 5, 3, 4, 4, 4},
+        {2, 5, 3, 4, 4, 3, 5, 4, 4, 5, 3, 4, 4, 3},
+        {2, 5, 5, 5, 5, 5, 5, 4, 4, 5, 5, 5, 5, 4},
+        {1, 2, 2, 2, 2, 1, 5, 4, 3, 4, 4, 3, 0, 4},
+        {0, 0, 0, 0, 0, 2, 5, 4, 3, 4, 4, 3, 0, 3},
+        {0, 0, 0, 0, 0, 2, 5, 4, 4, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 2, 5, 4, 4, 0, 3, 4, 4, 8},
+        {2, 2, 2, 2, 2, 1, 5, 3, 3, 0, 4, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 4, 0, 0, 0},
     };
 
     void Start()
@@ -204,39 +186,57 @@ public class LevelGenerator : MonoBehaviour
                 else if (left == 1 && right == 1)
                     return 0;
             }
+        }
 
-            // T junctions
-            else if (type == 7)
+        // T junctions
+        else if (type == 7)
+        {
+            // Treat other T junctions as single walls, since that's how they join visually
+            top = top == 7 ? 1 : top;
+            bottom = bottom == 7 ? 1 : bottom;
+            left = left == 7 ? 1 : left;
+            right = right == 7 ? 1 : right;
+
+            // It is assumed that there are three connecting walls: one double and two single
+
+            // Find connected double wall (index refers to number of clockwise turns from top)
+            int doubleIndex = -1;
+
+            if (top == 2)
+                doubleIndex = 0;
+            else if (right == 2)
+                doubleIndex = 1;
+            else if (bottom == 2)
+                doubleIndex = 2;
+            else if (left == 2)
+                doubleIndex = 3;
+
+            // Find empty space (specifically, the one that isn't a wall)
+            int spaceIndex = -1;
+
+            if (top != 2 && top != 4)
+                spaceIndex = 0;
+            else if (right != 2 && right != 4)
+                spaceIndex = 1;
+            else if (bottom != 2 && bottom != 4)
+                spaceIndex = 2;
+            else if (left != 2 && left != 4)
+                spaceIndex = 3;
+
+            // If space is one index above double wall (one clockwise turn)
+            if (spaceIndex == (doubleIndex + 1) % 4)
             {
-                Debug.Log("found");
-                // Find connected double wall (index refers to number of clockwise turns from top)
-                int doubleIndex = -1;
-
-                if (top == 2)
-                    doubleIndex = 0;
-                else if (right == 2)
-                    doubleIndex = 1;
-                else if (bottom == 2)
-                    doubleIndex = 2;
-                else if (left == 2)
-                    doubleIndex = 3;
-
-                // Find connected single wall
-                int singleIndex = -1;
-
-                if (top == 1)
-                    singleIndex = 0;
-                else if (right == 1)
-                    singleIndex = 1;
-                else if (bottom == 1)
-                    singleIndex = 2;
-                else if (left == 1)
-                    singleIndex = 3;
-
-                // If single wall is one index above double wall (one clockwise turn)
-                if (singleIndex == (doubleIndex + 1) % 4)
-                    return 90 - (singleIndex * 90);
+                return 90 - (spaceIndex * 90);
             }
+
+            // If space is one index below double wall (one anticlockwise turn)
+            else if (doubleIndex == (spaceIndex + 1) % 4)
+            {
+                return 90 - (doubleIndex * 90);
+            }
+
+            // Otherwise, the default rotation will be 90
+            return 90;
         }
 
         // Default rotation for this piece
@@ -297,8 +297,12 @@ public class LevelGenerator : MonoBehaviour
 
             if (child.name.Contains("Corner"))
                 newChild.rotation = Quaternion.Euler(0, 0, newAngle);
+
             else if (child.name.Contains("Junction"))
-                newChild.localScale = new(-1, 1, 1);
+            {
+                newChild.rotation = Quaternion.Euler(0, 0, -child.rotation.z);
+                newChild.localScale = new(-newChild.localScale.x, newChild.localScale.y, 1);
+            }
         }
     }
 
@@ -331,8 +335,12 @@ public class LevelGenerator : MonoBehaviour
 
             if (child.name.Contains("Corner"))
                 newChild.rotation = Quaternion.Euler(0, 0, newAngle);
+
             else if (child.name.Contains("Junction"))
-                newChild.localScale = new(-1, 1, 1);
+            {
+                newChild.rotation = Quaternion.Euler(0, 0, child.rotation.z);
+                newChild.localScale = new(newChild.localScale.x, -newChild.localScale.y, 1);
+            }
         }
     }
 }
