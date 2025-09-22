@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -19,23 +20,41 @@ public class LevelGenerator : MonoBehaviour
     // 8 => ghost exit wall
 
     // Level map to generate (top left corner)
-    int[,] levelMap =
-    {
-        {1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7},
-        {2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4},
-        {2, 5, 3, 4, 4, 3, 5, 3, 4, 4, 4, 3, 5, 4},
-        {2, 6, 4, 0, 0, 4, 5, 4, 0, 0, 0, 4, 5, 4},
-        {2, 5, 3, 4, 4, 3, 5, 3, 4, 4, 4, 3, 5, 3},
-        {2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-        {2, 5, 3, 4, 4, 3, 5, 3, 3, 5, 3, 4, 4, 4},
-        {2, 5, 3, 4, 4, 3, 5, 4, 4, 5, 3, 4, 4, 3},
-        {2, 5, 5, 5, 5, 5, 5, 4, 4, 5, 5, 5, 5, 4},
-        {1, 2, 2, 2, 2, 1, 5, 4, 3, 4, 4, 3, 0, 4},
-        {0, 0, 0, 0, 0, 2, 5, 4, 3, 4, 4, 3, 0, 3},
-        {0, 0, 0, 0, 0, 2, 5, 4, 4, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 2, 5, 4, 4, 0, 3, 4, 4, 8},
-        {2, 2, 2, 2, 2, 1, 5, 3, 3, 0, 4, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 4, 0, 0, 0},
+    // int[,] levelMap =
+    // {
+    //     {1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7},
+    //     {2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4},
+    //     {2, 5, 3, 4, 4, 3, 5, 3, 4, 4, 4, 3, 5, 4},
+    //     {2, 6, 4, 0, 0, 4, 5, 4, 0, 0, 0, 4, 5, 4},
+    //     {2, 5, 3, 4, 4, 3, 5, 3, 4, 4, 4, 3, 5, 3},
+    //     {2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+    //     {2, 5, 3, 4, 4, 3, 5, 3, 3, 5, 3, 4, 4, 4},
+    //     {2, 5, 3, 4, 4, 3, 5, 4, 4, 5, 3, 4, 4, 3},
+    //     {2, 5, 5, 5, 5, 5, 5, 4, 4, 5, 5, 5, 5, 4},
+    //     {1, 2, 2, 2, 2, 1, 5, 4, 3, 4, 4, 3, 0, 4},
+    //     {0, 0, 0, 0, 0, 2, 5, 4, 3, 4, 4, 3, 0, 3},
+    //     {0, 0, 0, 0, 0, 2, 5, 4, 4, 0, 0, 0, 0, 0},
+    //     {0, 0, 0, 0, 0, 2, 5, 4, 4, 0, 3, 4, 4, 8},
+    //     {2, 2, 2, 2, 2, 1, 5, 3, 3, 0, 4, 0, 0, 0},
+    //     {0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 4, 0, 0, 0},
+    // };
+
+    int[,] levelMap = {
+        {1,2,2,2,2,2,2,2,2,2,2,2,2,7},
+        {2,5,5,5,5,5,5,5,5,5,5,5,5,4},
+        {2,5,5,3,3,5,5,5,5,5,5,5,5,4},
+        {2,5,5,4,3,4,3,5,5,5,5,5,5,4},
+        {2,5,5,4,0,0,4,5,5,5,5,5,5,3},
+        {2,5,5,4,0,0,4,5,5,5,5,5,5,5},
+        {2,5,5,3,4,3,4,5,5,5,5,5,5,5},
+        {2,5,5,5,5,3,3,5,5,5,5,5,5,3},
+        {2,5,5,5,5,5,5,5,5,5,5,5,5,4},
+        {2,5,5,5,5,5,5,3,4,4,4,3,0,4},
+        {1,2,2,2,2,1,5,4,3,4,4,3,0,3},
+        {0,0,0,0,0,2,5,4,4,0,0,0,0,0},
+        {0,0,0,0,0,2,5,4,4,0,3,4,4,8},
+        {2,2,2,2,2,1,5,3,3,0,4,0,0,0},
+        {0,0,0,0,0,0,5,0,0,0,4,0,0,0},
     };
 
     void Start()
@@ -75,16 +94,28 @@ public class LevelGenerator : MonoBehaviour
         };
     }
 
+    (int, int, int, int) GetVonNeumannNeighbours(int x, int y)
+    {
+        // Coords go in reverse if they exceed the map, to replicate mirroring
+        int top = y - 1 >= 0 ? levelMap[y - 1, x] : 0;
+        int right = x + 1 < levelMap.GetLength(1) ? levelMap[y, x + 1] : levelMap[y, x]; // Note [y, x] for horizontal
+        int bottom = y + 1 < levelMap.GetLength(0) ? levelMap[y + 1, x] : levelMap[y - 1, x]; // Note [y - 1, x] for vertical
+        int left = x - 1 >= 0 ? levelMap[y, x - 1] : 0;
+
+        return (top, right, bottom, left);
+    }
+
     float FindRotation(int x, int y)
     {
+        // Out of bounds
+        if (x < 0 || y < 0 || x >= levelMap.GetLength(1) || y >= levelMap.GetLength(0))
+            return 0;
+
         // The type of this object
         int type = levelMap[y, x];
 
-        // The types of each von neumann neighbour (coords go in reverse if they exceed the map, to replicate mirroring)
-        int left = x - 1 >= 0 ? levelMap[y, x - 1] : 0;
-        int right = x + 1 < levelMap.GetLength(1) ? levelMap[y, x + 1] : levelMap[y, x]; // Note [y, x] for horizontal
-        int bottom = y + 1 < levelMap.GetLength(0) ? levelMap[y + 1, x] : levelMap[y - 1, x]; // Note [y - 1, x] for vertical
-        int top = y - 1 >= 0 ? levelMap[y - 1, x] : 0;
+        // The types of each von neumann neighbour
+        var (top, right, bottom, left) = GetVonNeumannNeighbours(x, y);
 
         // All corners and walls
         if (type >= 1 && type <= 4 || type == 8)
@@ -105,6 +136,16 @@ public class LevelGenerator : MonoBehaviour
             // Corners
             if (type == 1 || type == 3)
             {
+                // Walls only count if they are facing the correct direction
+                if (left == 2 && FindRotation(x - 1, y) != 0)
+                    left = 0;
+                if (right == 2 && FindRotation(x + 1, y) != 0)
+                    right = 0;
+                if (top == 2 && FindRotation(x, y - 1) != 90)
+                    top = 0;
+                if (bottom == 2 && FindRotation(x, y + 1) != 90)
+                    bottom = 0;
+
                 // Wall connections
                 if (left == 2 && top == 2)
                     return 180;
@@ -123,6 +164,16 @@ public class LevelGenerator : MonoBehaviour
                 else if ((right == 1 && top == 2) || (right == 2 && top == 1))
                     return 90;
                 else if ((right == 1 && bottom == 2) || (right == 2 && bottom == 1))
+                    return 0;
+
+                // Corner connections
+                else if (left == 1 && top == 1)
+                    return 180;
+                else if (left == 1 && bottom == 1)
+                    return 270;
+                else if (right == 1 && top == 1)
+                    return 90;
+                else if (right == 1 && bottom == 1)
                     return 0;
             }
 
@@ -152,6 +203,39 @@ public class LevelGenerator : MonoBehaviour
                     return 90;
                 else if (left == 1 && right == 1)
                     return 0;
+            }
+
+            // T junctions
+            else if (type == 7)
+            {
+                Debug.Log("found");
+                // Find connected double wall (index refers to number of clockwise turns from top)
+                int doubleIndex = -1;
+
+                if (top == 2)
+                    doubleIndex = 0;
+                else if (right == 2)
+                    doubleIndex = 1;
+                else if (bottom == 2)
+                    doubleIndex = 2;
+                else if (left == 2)
+                    doubleIndex = 3;
+
+                // Find connected single wall
+                int singleIndex = -1;
+
+                if (top == 1)
+                    singleIndex = 0;
+                else if (right == 1)
+                    singleIndex = 1;
+                else if (bottom == 1)
+                    singleIndex = 2;
+                else if (left == 1)
+                    singleIndex = 3;
+
+                // If single wall is one index above double wall (one clockwise turn)
+                if (singleIndex == (doubleIndex + 1) % 4)
+                    return 90 - (singleIndex * 90);
             }
         }
 
