@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Json;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -76,9 +75,6 @@ public class LevelGenerator : MonoBehaviour
         };
     }
 
-    bool IsConnectible(int type) =>
-        type == 1 || type == 2 || type == 7;
-
     float FindRotation(int x, int y)
     {
         // The type of this object
@@ -86,8 +82,8 @@ public class LevelGenerator : MonoBehaviour
 
         // The types of each von neumann neighbour (coords go in reverse if they exceed the map, to replicate mirroring)
         int left = x - 1 >= 0 ? levelMap[y, x - 1] : 0;
-        int right = x + 1 < levelMap.GetLength(1) ? levelMap[y, x + 1] : levelMap[y, x - 1];
-        int bottom = y + 1 < levelMap.GetLength(0) ? levelMap[y + 1, x] : levelMap[y - 1, x];
+        int right = x + 1 < levelMap.GetLength(1) ? levelMap[y, x + 1] : levelMap[y, x]; // Note [y, x] for horizontal
+        int bottom = y + 1 < levelMap.GetLength(0) ? levelMap[y + 1, x] : levelMap[y - 1, x]; // Note [y - 1, x] for vertical
         int top = y - 1 >= 0 ? levelMap[y - 1, x] : 0;
 
         // All corners and walls
@@ -104,32 +100,76 @@ public class LevelGenerator : MonoBehaviour
             // [5, 6, 7] are not significant here, so we are left with [0, 1, 2]
             // 3 ** 4 = 81 possibilities for each
 
+            // More preferable conditions are higher in if chains
+
             // Corners
             if (type == 1 || type == 3)
             {
-                if (IsConnectible(left) && IsConnectible(top))
+                // Wall connections
+                if (left == 2 && top == 2)
                     return 180;
-                else if (IsConnectible(left) && IsConnectible(bottom))
+                else if (left == 2 && bottom == 2)
                     return 270;
-                else if (IsConnectible(right) && IsConnectible(top))
+                else if (right == 2 && top == 2)
                     return 90;
+                else if (right == 2 && bottom == 2)
+                    return 0;
+
+                // Wall and corner connections
+                else if ((left == 1 && top == 2) || (left == 2 && top == 1))
+                    return 180;
+                else if ((left == 1 && bottom == 2) || (left == 2 && bottom == 1))
+                    return 270;
+                else if ((right == 1 && top == 2) || (right == 2 && top == 1))
+                    return 90;
+                else if ((right == 1 && bottom == 2) || (right == 2 && bottom == 1))
+                    return 0;
             }
 
             // Walls
             else if (type == 2 || type == 4 || type == 8)
             {
-                if (IsConnectible(top) && IsConnectible(bottom))
+                // Treat T junctions as a corner
+                top = top == 7 ? 1 : top;
+                bottom = bottom == 7 ? 1 : bottom;
+                left = left == 7 ? 1 : left;
+                right = right == 7 ? 1 : right;
+
+                // Wall connections
+                if (top == 2 && bottom == 2)
                     return 90;
+                else if (left == 2 && right == 2)
+                    return 0;
+
+                // Wall and corner connections
+                else if ((top == 1 && bottom == 2) || (top == 2 && bottom == 1))
+                    return 90;
+                else if ((left == 1 && right == 2) || (left == 2 && right == 1))
+                    return 0;
+
+                // Corner connections
+                else if (top == 1 && bottom == 1)
+                    return 90;
+                else if (left == 1 && right == 1)
+                    return 0;
             }
         }
 
+        // Default rotation for this piece
         return 0;
     }
 
     void ClearLevel()
     {
-        for (int i = 0; i < transform.childCount; ++i)
-            Destroy(transform.GetChild(i).gameObject);
+        for (; transform.childCount > 0;)
+        {
+            Transform t = transform.GetChild(0);
+
+            // Unparenting because destruction won't occur until the end of the frame
+            t.SetParent(null);
+
+            Destroy(t.gameObject);
+        }
     }
 
     void GenerateBase()
@@ -150,12 +190,17 @@ public class LevelGenerator : MonoBehaviour
 
     void MirrorBaseHorizontally()
     {
-        for (int i = 0; i < transform.childCount; ++i)
+        Transform[] children = GetComponentsInChildren<Transform>();
+
+        foreach (Transform child in children)
         {
-            Transform child = transform.GetChild(i);
+            // Skip this transform
+            if (child == transform)
+                continue;
+
             Transform newChild = Spawn(
                 child.gameObject,
-                new(child.position.x + levelMap.GetLength(1), child.position.y));
+                new(2 * levelMap.GetLength(1) - child.localPosition.x - 1, child.localPosition.y));
 
             float newAngle = child.rotation.eulerAngles.z switch
             {
@@ -175,6 +220,35 @@ public class LevelGenerator : MonoBehaviour
 
     void MirrorBaseVertically()
     {
+        Transform[] children = GetComponentsInChildren<Transform>();
 
+        foreach (Transform child in children)
+        {
+            // Skip this transform
+            if (child == transform)
+                continue;
+
+            Vector3 newPos = new(child.localPosition.x, -2 * levelMap.GetLength(0) - child.localPosition.y + 2);
+
+            // Skip overlapping objects
+            if (newPos == child.localPosition)
+                continue;
+
+            Transform newChild = Spawn(child.gameObject, newPos);
+
+            float newAngle = child.rotation.eulerAngles.z switch
+            {
+                0 => 90,
+                90 => 0,
+                180 => 270,
+                270 => 180,
+                _ => child.rotation.eulerAngles.z,
+            };
+
+            if (child.name.Contains("Corner"))
+                newChild.rotation = Quaternion.Euler(0, 0, newAngle);
+            else if (child.name.Contains("Junction"))
+                newChild.localScale = new(-1, 1, 1);
+        }
     }
 }
