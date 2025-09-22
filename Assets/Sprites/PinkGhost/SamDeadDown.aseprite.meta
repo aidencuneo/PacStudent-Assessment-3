@@ -143,14 +143,14 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: SamDeadDown_Frame_1
     originalName: 
-    pivot: {x: 0.33333334, y: 0.5}
+    pivot: {x: 0.4666667, y: 0.5}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 28
-      width: 12
+      width: 15
       height: 16
     spriteID: 67d0937c00a5ebc4bada636509c584c5
     spriteBone: []
@@ -181,9 +181,9 @@ ScriptedImporter:
     - name: SamDeadDown_Frame_1
       frameIndex: 1
       cellRect:
-        x: 4
+        x: 1
         y: 0
-        width: 12
+        width: 15
         height: 16
       spriteId: 67d0937c00a5ebc4bada636509c584c5
     linkedCells: []
