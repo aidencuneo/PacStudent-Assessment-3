@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5701249159094599109}
   - component: {fileID: 7877335639556727017}
   - component: {fileID: 5455964979094146703}
-  - component: {fileID: 7543651599513250286}
   m_Layer: 0
   m_Name: PacStudent
   m_TagString: Untagged
@@ -99,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 2158347408614832713}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 82181872cf781a54a95b0976f3f66427, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -208,18 +207,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7543651599513250286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2158347408614832713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56a9d9ae61bf4f646889560f6b4b063d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 7877335639556727017}
-  audioSource: {fileID: 5455964979094146703}
-  speed: 4

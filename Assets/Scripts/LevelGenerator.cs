@@ -221,7 +221,7 @@ public class LevelGenerator : MonoBehaviour
         return 0;
     }
 
-    void TryFliPTJunction(Transform obj, int x, int y)
+    void TryFlipTJunction(Transform obj, int x, int y)
     {
         // Find space based on rotation, then find double wall
         float rot = obj.rotation.eulerAngles.z;
@@ -268,14 +268,14 @@ public class LevelGenerator : MonoBehaviour
                     continue;
 
                 // Spawn the object
-                Transform obj = Spawn(prefabs[levelMap[y, x]], new(x, -y));
+                Transform obj = Spawn(prefabs[levelMap[y, x]], new(x - levelMap.GetLength(1) + 1, -y));
 
                 // Determine its rotation
                 obj.rotation = Quaternion.Euler(0, 0, FindRotation(x, y));
 
                 // Flip T junctions if needed
                 if (obj.name.Contains("Junction"))
-                    TryFliPTJunction(obj, x, y);
+                    TryFlipTJunction(obj, x, y);
             }
     }
 
@@ -291,7 +291,7 @@ public class LevelGenerator : MonoBehaviour
 
             Transform newChild = Spawn(
                 child.gameObject,
-                new(2 * levelMap.GetLength(1) - child.localPosition.x - 1, child.localPosition.y));
+                new(-child.localPosition.x + 1, child.localPosition.y));
 
             float newAngle = child.rotation.eulerAngles.z switch
             {
