@@ -1035,6 +1035,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df9b39373b76ea4088173190c67f3fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 1274532776}
+  lifeImages:
+  - {fileID: 30929756}
+  - {fileID: 52592102}
+  - {fileID: 802594188}
 --- !u!1 &978383743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,9 +1123,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 948909902}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: LoadLevel1
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
