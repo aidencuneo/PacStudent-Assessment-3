@@ -55,31 +55,6 @@ public class LevelGenerator : MonoBehaviour
 
         // Mirror the top two segments vertically (the segments are the children of this object)
         MirrorBaseVertically();
-
-        Debug.Log(WorldToMapPos(new(-13, 14)));
-        Debug.Log(WorldToMapPos(new(-12, 14)));
-        Debug.Log(WorldToMapPos(new(-11, 14)));
-        Debug.Log(WorldToMapPos(new(-10, 14)));
-        Debug.Log(WorldToMapPos(new(-9, 14)));
-        Debug.Log(WorldToMapPos(new(-13, 14)));
-        Debug.Log(WorldToMapPos(new(-13, 13)));
-        Debug.Log(WorldToMapPos(new(-13, 12)));
-        Debug.Log(WorldToMapPos(new(-13, 11)));
-        Debug.Log(WorldToMapPos(new(-13, 10)));
-
-        string level = "";
-
-        for (int y = 0; y < 2 * levelMap.GetLength(0) - 1; ++y)
-        {
-            string row = "";
-
-            for (int x = 0; x < 2 * levelMap.GetLength(1); ++x)
-                row += GetCell(x, y);
-
-            level += row + "\n";
-        }
-
-        Debug.Log(level);
     }
 
     Transform Spawn(GameObject prefab, Vector2 pos)

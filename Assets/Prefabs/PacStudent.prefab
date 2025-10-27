@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5701249159094599109}
   - component: {fileID: 7877335639556727017}
   - component: {fileID: 5455964979094146703}
+  - component: {fileID: 8300664584981193806}
   m_Layer: 0
   m_Name: PacStudent
   m_TagString: Untagged
@@ -207,3 +208,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8300664584981193806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2158347408614832713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd66e73e76e8c294a8ee845543bde967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
