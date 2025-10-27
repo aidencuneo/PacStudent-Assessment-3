@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -54,6 +55,31 @@ public class LevelGenerator : MonoBehaviour
 
         // Mirror the top two segments vertically (the segments are the children of this object)
         MirrorBaseVertically();
+
+        Debug.Log(WorldToMapPos(new(-13, 14)));
+        Debug.Log(WorldToMapPos(new(-12, 14)));
+        Debug.Log(WorldToMapPos(new(-11, 14)));
+        Debug.Log(WorldToMapPos(new(-10, 14)));
+        Debug.Log(WorldToMapPos(new(-9, 14)));
+        Debug.Log(WorldToMapPos(new(-13, 14)));
+        Debug.Log(WorldToMapPos(new(-13, 13)));
+        Debug.Log(WorldToMapPos(new(-13, 12)));
+        Debug.Log(WorldToMapPos(new(-13, 11)));
+        Debug.Log(WorldToMapPos(new(-13, 10)));
+
+        string level = "";
+
+        for (int y = 0; y < 2 * levelMap.GetLength(0) - 1; ++y)
+        {
+            string row = "";
+
+            for (int x = 0; x < 2 * levelMap.GetLength(1); ++x)
+                row += GetCell(x, y);
+
+            level += row + "\n";
+        }
+
+        Debug.Log(level);
     }
 
     Transform Spawn(GameObject prefab, Vector2 pos)
@@ -84,6 +110,52 @@ public class LevelGenerator : MonoBehaviour
         int left = x - 1 >= 0 ? levelMap[y, x - 1] : 0;
 
         return (top, right, bottom, left);
+    }
+
+    (int, int) WorldToMapPos(Vector2 pos)
+    {
+        // Convert world coordinate to map coordinate
+        int x = Mathf.FloorToInt(pos.x);
+        int y = Mathf.FloorToInt(pos.y);
+
+        x += levelMap.GetLength(1) - 1;
+        y = levelMap.GetLength(0) - y - 1;
+
+        return (x, y);
+    }
+
+    (int, int) MapToWorldPos(int x, int y)
+    {
+        // Convert map coordinate to world coordinate
+        x -= levelMap.GetLength(1) - 1;
+        y = levelMap.GetLength(0) - y - 1;
+
+        return (x, y);
+    }
+
+    int GetCell(Vector2 pos)
+    {
+        (int x, int y) = WorldToMapPos(pos);
+        return GetCell(x, y);
+    }
+
+    int GetCell(int x, int y)
+    {
+        // Get cell from coordinate in map, mirroring when out of bounds
+
+        // Too far right?
+        if (x >= levelMap.GetLength(1))
+            x = 2 * levelMap.GetLength(1) - x - 1;
+
+        // Too far down?
+        if (y >= levelMap.GetLength(0))
+            y = 2 * levelMap.GetLength(0) - y - 2;
+
+        // Still out of bounds?
+        if (x < 0 || y < 0)
+            return 0;
+
+        return levelMap[y, x];
     }
 
     float FindRotation(int x, int y)
@@ -268,7 +340,9 @@ public class LevelGenerator : MonoBehaviour
                     continue;
 
                 // Spawn the object
-                Transform obj = Spawn(prefabs[levelMap[y, x]], new(x - levelMap.GetLength(1) + 1, -y));
+                Transform obj = Spawn(
+                    prefabs[levelMap[y, x]],
+                    new(x - levelMap.GetLength(1) + 1, -y + levelMap.GetLength(0) - 1));
 
                 // Determine its rotation
                 obj.rotation = Quaternion.Euler(0, 0, FindRotation(x, y));
@@ -323,7 +397,7 @@ public class LevelGenerator : MonoBehaviour
             if (child == transform)
                 continue;
 
-            Vector3 newPos = new(child.localPosition.x, -2 * levelMap.GetLength(0) - child.localPosition.y + 2);
+            Vector3 newPos = new(child.localPosition.x, -child.localPosition.y);
 
             // Skip overlapping objects
             if (newPos == child.localPosition)
