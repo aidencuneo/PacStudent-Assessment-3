@@ -86,7 +86,8 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        gameTime = Time.time - startTime;
+        gameTime = Time.unscaledTime - startTime;
+        Debug.Log(Util.DisplayTime(Time.unscaledTime));
     }
 
     public void ExitLevel()
