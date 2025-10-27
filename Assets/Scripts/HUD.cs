@@ -8,10 +8,14 @@ using UnityEngine.UI;
 public class HUD : MonoBehaviour
 {
     public TMP_Text scoreText;
+    public TMP_Text gameTimeText;
     public Image[] lifeImages;
+
+    float startTime = 0;
 
     // Property values
     float scoreValue = 0;
+    float gameTimeValue = 0;
     int livesValue = 3;
 
     // Properties
@@ -23,6 +27,19 @@ public class HUD : MonoBehaviour
         {
             scoreValue = value;
             scoreText.text = $"Score: <color=#ffdf12>{scoreValue:000000}</color>";
+        }
+    }
+
+    public float gameTime
+    {
+        get => gameTimeValue;
+
+        set
+        {
+            gameTimeValue = value;
+
+            string displayedTime = Util.DisplayTime(gameTimeValue);
+            gameTimeText.text = $"Time: <color=#ffdf12>{displayedTime}</color>";
         }
     }
 
@@ -46,6 +63,9 @@ public class HUD : MonoBehaviour
 
     IEnumerator Start()
     {
+        startTime = Time.unscaledTime;
+
+        // Test different values on screen
         score = 639;
 
         lives = 3;
@@ -62,6 +82,11 @@ public class HUD : MonoBehaviour
             score = Random.Range(0, 100000);
             yield return new WaitForSeconds(1);
         }
+    }
+
+    void Update()
+    {
+        gameTime = Time.time - startTime;
     }
 
     public void ExitLevel()
