@@ -1,66 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UISpriteWalking : MonoBehaviour
 {
-    public Image image;
+    public RectTransform rect;
+    public AnimatedUISprite animator;
     public Sprite[] upFrames;
     public Sprite[] rightFrames;
     public Sprite[] downFrames;
     public Sprite[] leftFrames;
     public float frameDelay = 0.1f; // Default frame delay (100ms) from Aseprite
-
-    IEnumerator Start()
-    {
-        while (true)
-        {
-            for (int i = 0 ;; ++i, i %= upFrames.Length)
-            {
-                image.sprite = upFrames[i];
-                yield return new WaitForSeconds(frameDelay);
-            }
-        }
-    }
+    public float speed = 1;
+    public float time = 0;
+    public Transform[] corners; // From top left, continuing clockwise
 
     void Update()
     {
-        // Vector2 lerp;
+        Vector2 lerp;
 
-        // if (time < 5)
-        // {
-        //     lerp = Vector2.LerpUnclamped(startPos, rightPos, time / 5);
-        //     animator.SetInteger("Direction", 0);
-        // }
+        if (time < 11)
+        {
+            lerp = Vector2.LerpUnclamped(corners[0].position, corners[1].position, time / 11);
+            animator.frames = rightFrames;
+        }
 
-        // else if (time < 5 + 4)
-        // {
-        //     lerp = Vector2.LerpUnclamped(rightPos, bottomPos, (time - 5) / 4);
-        //     animator.SetInteger("Direction", 1);
-        // }
+        else if (time < 11 + 6)
+        {
+            lerp = Vector2.LerpUnclamped(corners[1].position, corners[2].position, (time - 11) / 6);
+            animator.frames = downFrames;
+        }
 
-        // else if (time < 5 + 4 + 5)
-        // {
-        //     lerp = Vector2.LerpUnclamped(bottomPos, leftPos, (time - 5 - 4) / 5);
-        //     animator.SetInteger("Direction", 2);
-        // }
+        else if (time < 11 + 6 + 11)
+        {
+            lerp = Vector2.LerpUnclamped(corners[2].position, corners[3].position, (time - 11 - 6) / 11);
+            animator.frames = leftFrames;
+        }
 
-        // else
-        // {
-        //     lerp = Vector2.LerpUnclamped(leftPos, startPos, (time - 5 - 4 - 5) / 4);
-        //     animator.SetInteger("Direction", 3);
-        // }
+        else
+        {
+            lerp = Vector2.LerpUnclamped(corners[3].position, corners[0].position, (time - 11 - 6 - 11) / 6);
+            animator.frames = upFrames;
+        }
 
-        // // Walk sound (also scales with speed variable)
-        // if ((int) time != lastSoundPlayed)
-        // {
-        //     audioSource.Play();
-        //     lastSoundPlayed = (int) time;
-        // }
-
-        // transform.position = lerp;
-        // time += speed * Time.deltaTime;
-        // time %= 5 + 4 + 5 + 4;
+        transform.position = lerp;
+        time += speed * Time.deltaTime;
+        time %= 11 + 6 + 11 + 6;
     }
 }
