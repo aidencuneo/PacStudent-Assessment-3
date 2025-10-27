@@ -9,7 +9,6 @@ public class UISpriteWalking : MonoBehaviour
     public Sprite[] rightFrames;
     public Sprite[] downFrames;
     public Sprite[] leftFrames;
-    public float frameDelay = 0.1f; // Default frame delay (100ms) from Aseprite
     public float speed = 1;
     public float time = 0;
     public Transform[] corners; // From top left, continuing clockwise
