@@ -9,13 +9,15 @@ public class HUD : MonoBehaviour
 {
     public TMP_Text scoreText;
     public TMP_Text gameTimeText;
+    public TMP_Text scaredTimeText;
     public Image[] lifeImages;
 
-    float startTime = 0;
+    float startTime = -1;
 
     // Property values
     float scoreValue = 0;
     float gameTimeValue = 0;
+    int scaredTimeValue = 0;
     int livesValue = 3;
 
     // Properties
@@ -43,6 +45,19 @@ public class HUD : MonoBehaviour
         }
     }
 
+    public int scaredTime
+    {
+        get => scaredTimeValue;
+
+        set
+        {
+            scaredTimeValue = value;
+
+            string display = scaredTimeValue > 0 ? "" + scaredTimeValue : "";
+            scaredTimeText.text = $"Scared Time: <color=#ffdf12>{display}</color>";
+        }
+    }
+
     public int lives
     {
         get => livesValue;
@@ -63,6 +78,7 @@ public class HUD : MonoBehaviour
 
     IEnumerator Start()
     {
+        // Set this variable when the game actually starts
         startTime = Time.unscaledTime;
 
         // Test different values on screen
@@ -77,17 +93,17 @@ public class HUD : MonoBehaviour
         lives = 0;
         yield return new WaitForSeconds(2);
 
-        while (true)
+        // Testing scared time
+        for (scaredTime = 15; scaredTime >= 0; --scaredTime)
         {
-            score = Random.Range(0, 100000);
             yield return new WaitForSeconds(1);
         }
     }
 
     void Update()
     {
-        gameTime = Time.unscaledTime - startTime;
-        Debug.Log(Util.DisplayTime(Time.unscaledTime));
+        if (startTime != -1)
+            gameTime = Time.unscaledTime - startTime;
     }
 
     public void ExitLevel()
