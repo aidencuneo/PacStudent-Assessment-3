@@ -6,6 +6,7 @@ public class PacStudentController : MonoBehaviour
 {
     public Animator animator;
     public AudioSource audioSource;
+    public ParticleSystem dustParticleSystem;
     public AudioClip footstepClip;
     public AudioClip rockEatClip;
     public AudioClip diamondCollectClip;
@@ -58,20 +59,20 @@ public class PacStudentController : MonoBehaviour
             {
                 currentInput = lastInput;
                 StartCoroutine(LerpToCell(transform.position + GetDirVector(currentInput)));
-                PlaySound(currentInput);
+                PlayEffects(currentInput);
             }
 
             // Otherwise use current input if valid
             else if (CanMove(currentInput) && currentInput != InputType.None)
             {
                 StartCoroutine(LerpToCell(transform.position + GetDirVector(currentInput)));
-                PlaySound(currentInput);
+                PlayEffects(currentInput);
             }
 
             // Travelling somewhere but path is obstructed
             else if (currentInput != InputType.None && !justCollided)
             {
-                audioSource.PlayOneShot(wallImpactClip, 0.5f);
+                PlaySound(wallImpactClip);
                 justCollided = true;
             }
 
@@ -138,7 +139,7 @@ public class PacStudentController : MonoBehaviour
         isLerping = false;
     }
 
-    void PlaySound(InputType direction)
+    void PlayEffects(InputType direction)
     {
         // Get next cell
         int type = GetCellType(direction);
@@ -150,6 +151,14 @@ public class PacStudentController : MonoBehaviour
             _ => footstepClip,
         };
 
-        audioSource.PlayOneShot(clip, 0.5f);
+        PlaySound(clip);
+
+        // Play dust particles
+        dustParticleSystem.Play();
+    }
+
+    void PlaySound(AudioClip clip, float volume = 0.5f)
+    {
+        audioSource.PlayOneShot(clip, volume);
     }
 }
