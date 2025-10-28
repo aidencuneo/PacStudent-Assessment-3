@@ -410,6 +410,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1056767490 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8003208678820421515, guid: 940faf8df366d634fb35d7f631a650cf, type: 3}
+  m_PrefabInstance: {fileID: 556955120827100223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1578005821 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1723703226620463213, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
+  m_PrefabInstance: {fileID: 3430639381321913620}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2103404323 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3964075691347884882, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
+  m_PrefabInstance: {fileID: 3430639381321913620}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2108513783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -559,6 +580,10 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.g
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8300664584981193806, guid: 940faf8df366d634fb35d7f631a650cf, type: 3}
+      propertyPath: deathParticleSystem
+      value: 
+      objectReference: {fileID: 1056767490}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -701,6 +726,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1723703226620463213, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
+      propertyPath: m_fontSize
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723703226620463213, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 240
+      objectReference: {fileID: 0}
     - target: {fileID: 2333041367043281390, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -785,14 +818,38 @@ PrefabInstance:
       propertyPath: m_UiScaleMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3964075691347884882, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
+      propertyPath: m_Name
+      value: CountdownPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4624242453541259510, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
+      propertyPath: m_Color.a
+      value: 0.7058824
+      objectReference: {fileID: 0}
     - target: {fileID: 5369040210163216330, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 6682715651103144391, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
+      propertyPath: countdownText
+      value: 
+      objectReference: {fileID: 1578005821}
+    - target: {fileID: 6682715651103144391, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
+      propertyPath: countdownPanel
+      value: 
+      objectReference: {fileID: 2103404323}
     - target: {fileID: 8609065257105626471, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 8724729406767668423, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 8724729406767668423, guid: 5c1d01d81a3ae634cbb79d00c91a4bbb, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

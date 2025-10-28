@@ -35,7 +35,7 @@ public class PacStudentController : MonoBehaviour
 
     void Update()
     {
-        if (isDead)
+        if (isDead || HUD.me.gameTime <= 0)
             return;
 
         // Get current input

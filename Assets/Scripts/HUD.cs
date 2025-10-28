@@ -15,6 +15,8 @@ public class HUD : MonoBehaviour
     public TMP_Text gameTimeText;
     public TMP_Text scaredTimeText;
     public Image[] lifeImages;
+    public GameObject countdownPanel;
+    public TMP_Text countdownText;
 
     float startTime = -1;
 
@@ -80,9 +82,21 @@ public class HUD : MonoBehaviour
         }
     }
 
-    void Start()
+    IEnumerator Start()
     {
         me = this;
+
+        for (int i = 3; i >= 0; --i)
+        {
+            if (i > 0)
+                countdownText.text = i.ToString();
+            else
+                countdownText.text = "GO!";
+
+            yield return new WaitForSeconds(1);
+        }
+
+        countdownPanel.SetActive(false);
 
         // Set this variable when the game actually starts
         startTime = Time.unscaledTime;
