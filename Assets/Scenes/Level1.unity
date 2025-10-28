@@ -331,6 +331,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PacStudent
       objectReference: {fileID: 0}
+    - target: {fileID: 5455964979094146703, guid: 940faf8df366d634fb35d7f631a650cf, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5455964979094146703, guid: 940faf8df366d634fb35d7f631a650cf, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

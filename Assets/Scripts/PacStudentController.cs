@@ -5,6 +5,13 @@ using UnityEngine;
 public class PacStudentController : MonoBehaviour
 {
     public Animator animator;
+    public AudioSource audioSource;
+    public AudioClip footstepClip;
+    public AudioClip rockEatClip;
+    public AudioClip diamondCollectClip;
+    public AudioClip wallImpactClip;
+    public AudioClip deathClip;
+
     public float speed = 5f;
 
     enum InputType
@@ -17,6 +24,9 @@ public class PacStudentController : MonoBehaviour
 
     // Currently lerping between two cells?
     bool isLerping = false;
+
+    // Just collided with a wall and stopped?
+    bool justCollided = false;
 
     void Update()
     {
@@ -32,24 +42,38 @@ public class PacStudentController : MonoBehaviour
         else if (Input.GetKey("d"))
             playerInput = InputType.D;
 
-        // Store last input
+        // Store last input and reset collision
         if (playerInput != InputType.None)
+        {
             lastInput = playerInput;
+            justCollided = false;
+        }
 
         // Debug.Log(playerInput + ", " + lastInput + ", " + currentInput);
 
         if (!isLerping)
         {
             // Use last input if valid
-            if (CanMove(lastInput))
+            if (CanMove(lastInput) && lastInput != InputType.None)
             {
                 currentInput = lastInput;
                 StartCoroutine(LerpToCell(transform.position + GetDirVector(currentInput)));
+                PlaySound(currentInput);
             }
 
             // Otherwise use current input if valid
-            else if (CanMove(currentInput))
+            else if (CanMove(currentInput) && currentInput != InputType.None)
+            {
                 StartCoroutine(LerpToCell(transform.position + GetDirVector(currentInput)));
+                PlaySound(currentInput);
+            }
+
+            // Travelling somewhere but path is obstructed
+            else if (currentInput != InputType.None && !justCollided)
+            {
+                audioSource.PlayOneShot(wallImpactClip, 0.5f);
+                justCollided = true;
+            }
 
             // Update animator when changing direction
             int animDir = currentInput switch
@@ -73,8 +97,6 @@ public class PacStudentController : MonoBehaviour
             // Reset animator speed when lerping
             animator.speed = 1;
         }
-
-        Debug.Log(animator.speed);
     }
 
     Vector3 GetDirVector(InputType direction)
@@ -94,6 +116,11 @@ public class PacStudentController : MonoBehaviour
         return LevelGenerator.me.IsEmpty(transform.position + GetDirVector(direction));
     }
 
+    int GetCellType(InputType direction)
+    {
+        return LevelGenerator.me.GetCell(transform.position + GetDirVector(direction));
+    }
+
     IEnumerator LerpToCell(Vector2 endPos)
     {
         isLerping = true;
@@ -109,5 +136,20 @@ public class PacStudentController : MonoBehaviour
 
         transform.position = endPos;
         isLerping = false;
+    }
+
+    void PlaySound(InputType direction)
+    {
+        // Get next cell
+        int type = GetCellType(direction);
+
+        AudioClip clip = type switch
+        {
+            5 => rockEatClip,
+            6 => rockEatClip,
+            _ => footstepClip,
+        };
+
+        audioSource.PlayOneShot(clip, 0.5f);
     }
 }
