@@ -52,6 +52,11 @@ public class Cherry : MonoBehaviour
             yield return null;
         }
 
+        Destroy(gameObject);
+    }
+
+    void OnDestroy()
+    {
         CherryController.me.DestroyCherry();
     }
 

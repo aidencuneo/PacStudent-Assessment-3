@@ -32,7 +32,6 @@ public class CherryController : MonoBehaviour
 
     public void DestroyCherry()
     {
-        Destroy(lastCherry);
         lastCherry = null;
         lastDestroyedTime = Time.time;
 

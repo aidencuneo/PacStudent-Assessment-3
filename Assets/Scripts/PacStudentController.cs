@@ -104,6 +104,28 @@ public class PacStudentController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Diamond"))
+        {
+            HUD.me.score += 100;
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("Rock"))
+        {
+            HUD.me.score += 10;
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("PowerPellet"))
+        {
+            HUD.me.score += 50;
+            HUD.me.ScareGhosts();
+            Destroy(other.gameObject);
+        }
+    }
+
     Vector3 GetDirVector(InputType direction)
     {
         return direction switch

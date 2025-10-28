@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
+    // Singleton
+    public static HUD me;
+
+    // References
     public TMP_Text scoreText;
     public TMP_Text gameTimeText;
     public TMP_Text scaredTimeText;
@@ -76,28 +80,22 @@ public class HUD : MonoBehaviour
         }
     }
 
-    IEnumerator Start()
+    void Start()
     {
+        me = this;
+
         // Set this variable when the game actually starts
         startTime = Time.unscaledTime;
 
-        // Test different values on screen
-        score = 639;
-
-        lives = 3;
-        yield return new WaitForSeconds(2);
-        lives = 2;
-        yield return new WaitForSeconds(2);
-        lives = 1;
-        yield return new WaitForSeconds(2);
-        lives = 0;
-        yield return new WaitForSeconds(2);
-
-        // Testing scared time
-        for (scaredTime = 15; scaredTime >= 0; --scaredTime)
-        {
-            yield return new WaitForSeconds(1);
-        }
+        // // Test different values on screen
+        // lives = 3;
+        // yield return new WaitForSeconds(2);
+        // lives = 2;
+        // yield return new WaitForSeconds(2);
+        // lives = 1;
+        // yield return new WaitForSeconds(2);
+        // lives = 0;
+        // yield return new WaitForSeconds(2);
     }
 
     void Update()
@@ -109,5 +107,11 @@ public class HUD : MonoBehaviour
     public void ExitLevel()
     {
         SceneManager.LoadScene("StartScene");
+    }
+
+    public IEnumerator ScareGhosts(int duration = 10)
+    {
+        for (scaredTime = duration; scaredTime >= 0; --scaredTime)
+            yield return new WaitForSeconds(1);
     }
 }
