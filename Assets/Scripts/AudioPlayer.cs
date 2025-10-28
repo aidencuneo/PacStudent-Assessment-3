@@ -12,6 +12,7 @@ public class AudioPlayer : MonoBehaviour
     public AudioClip introMusic;
     public AudioClip ghostNormalMusic;
     public AudioClip ghostScaredMusic;
+    public AudioClip ghostDeadMusic;
 
     float regularMusicTime = 0;
 
@@ -34,6 +35,12 @@ public class AudioPlayer : MonoBehaviour
     {
         regularMusicTime = audioSource.time;
         audioSource.clip = ghostScaredMusic;
+        audioSource.Play();
+    }
+
+    public void PlayGhostDeadMusic()
+    {
+        audioSource.clip = ghostDeadMusic;
         audioSource.Play();
     }
 

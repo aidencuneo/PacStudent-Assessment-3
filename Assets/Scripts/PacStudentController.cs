@@ -8,6 +8,7 @@ public class PacStudentController : MonoBehaviour
     public AudioSource audioSource;
     public ParticleSystem dustParticleSystem;
     public ParticleSystem wallImpactParticleSystem;
+    public ParticleSystem deathParticleSystem;
     public AudioClip footstepClip;
     public AudioClip rockEatClip;
     public AudioClip diamondCollectClip;
@@ -30,8 +31,13 @@ public class PacStudentController : MonoBehaviour
     // Just collided with a wall and stopped?
     bool justCollided = false;
 
+    bool isDead = false;
+
     void Update()
     {
+        if (isDead)
+            return;
+
         // Get current input
         InputType playerInput = InputType.None;
 
@@ -124,6 +130,49 @@ public class PacStudentController : MonoBehaviour
             StartCoroutine(HUD.me.ScareGhosts());
             Destroy(other.gameObject);
         }
+
+        else if (other.CompareTag("Ghost"))
+        {
+            // Will add this in the next section
+            // GhostController ghost = other.GetComponent<GhostController>();
+
+            if (false) // if (HUD.me.scaredTime > 0)
+            {
+                // HUD.me.score += 200;
+                // ghost.Respawn();
+            }
+            else
+            {
+                // Play death sound and animation before respawning
+                StartCoroutine(Die());
+            }
+        }
+    }
+
+    IEnumerator Die()
+    {
+        isDead = true;
+
+        // Lose a life
+        --HUD.me.lives;
+
+        // Play death sound, animation and particle effect
+        PlaySound(deathClip);
+        deathParticleSystem.Play();
+        animator.SetBool("Dead", true);
+
+        yield return new WaitForSeconds(3f);
+
+        animator.SetBool("Dead", false);
+
+        // Respawn
+        lastInput = InputType.None;
+        currentInput = InputType.None;
+        isLerping = false;
+        StopAllCoroutines();
+        transform.position = LevelGenerator.me.MapToWorldPos(1, 1);
+
+        isDead = false;
     }
 
     Vector3 GetDirVector(InputType direction)
