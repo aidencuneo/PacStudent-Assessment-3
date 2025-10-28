@@ -40,11 +40,17 @@ public class PacStudentController : MonoBehaviour
         // Debug.Log(playerInput + ", " + lastInput + ", " + currentInput);
 
         // Use last input if valid
-        if (!isLerping && CanMove(lastInput))
-            currentInput = lastInput;
+        if (!isLerping)
+        {
+            if (CanMove(lastInput))
+            {
+                currentInput = lastInput;
+                StartCoroutine(LerpToCell(transform.position + GetDirVector(currentInput)));
+            }
 
-        if (CanMove(currentInput))
-            StartCoroutine(LerpToCell(transform.position + GetDirVector(currentInput)));
+            else if (CanMove(currentInput))
+                StartCoroutine(LerpToCell(transform.position + GetDirVector(currentInput)));
+        }
     }
 
     Vector3 GetDirVector(InputType direction)
@@ -61,15 +67,11 @@ public class PacStudentController : MonoBehaviour
 
     bool CanMove(InputType direction)
     {
-        // Debug.Log(transform.position + GetDirVector(direction) + ", " + LevelGenerator.me.GetCell(transform.position + GetDirVector(direction)));
         return LevelGenerator.me.IsEmpty(transform.position + GetDirVector(direction));
     }
 
     IEnumerator LerpToCell(Vector2 endPos)
     {
-        if (isLerping)
-            yield break;
-
         isLerping = true;
         Vector3 startPos = transform.position;
         float duration = 1 / speed; // Speed is cells per second
@@ -78,7 +80,7 @@ public class PacStudentController : MonoBehaviour
         {
             float t = (Time.time - s) / duration;
             transform.position = Vector3.Lerp(startPos, endPos, t);
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
 
         transform.position = endPos;
