@@ -39,6 +39,9 @@ public class LevelGenerator : MonoBehaviour
         {0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 4, 0, 0, 0},
     };
 
+    public int realMapWidth => levelMap.GetLength(1) * 2;
+    public int realMapHeight => levelMap.GetLength(0) * 2 - 1;
+
     void Awake()
     {
         me = this;
@@ -104,13 +107,13 @@ public class LevelGenerator : MonoBehaviour
         return (x, y);
     }
 
-    public (int, int) MapToWorldPos(int x, int y)
+    public Vector2 MapToWorldPos(int x, int y)
     {
         // Convert map coordinate to world coordinate
         x -= levelMap.GetLength(1) - 1;
         y = levelMap.GetLength(0) - y - 1;
 
-        return (x, y);
+        return new(x, y);
     }
 
     public int GetCell(Vector2 pos)
