@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PacStudentController : MonoBehaviour
 {
+    public Animator animator;
     public float speed = 5f;
 
     enum InputType
@@ -37,18 +38,43 @@ public class PacStudentController : MonoBehaviour
 
         // Debug.Log(playerInput + ", " + lastInput + ", " + currentInput);
 
-        // Use last input if valid
         if (!isLerping)
         {
+            // Use last input if valid
             if (CanMove(lastInput))
             {
                 currentInput = lastInput;
                 StartCoroutine(LerpToCell(transform.position + GetDirVector(currentInput)));
             }
 
+            // Otherwise use current input if valid
             else if (CanMove(currentInput))
                 StartCoroutine(LerpToCell(transform.position + GetDirVector(currentInput)));
+
+            // Update animator when changing direction
+            int animDir = currentInput switch
+            {
+                InputType.D => 0,
+                InputType.S => 1,
+                InputType.A => 2,
+                InputType.W => 3,
+                _ => -1,
+            };
+
+            if (animDir != -1)
+                animator.SetInteger("Direction", animDir);
+
+            // Pause animator if not moving
+            animator.speed = 0;
         }
+
+        else
+        {
+            // Reset animator speed when lerping
+            animator.speed = 1;
+        }
+
+        Debug.Log(animator.speed);
     }
 
     Vector3 GetDirVector(InputType direction)
