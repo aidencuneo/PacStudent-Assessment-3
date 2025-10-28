@@ -136,9 +136,11 @@ public class PacStudentController : MonoBehaviour
             // Will add this in the next section
             // GhostController ghost = other.GetComponent<GhostController>();
 
-            if (false) // if (HUD.me.scaredTime > 0)
+            if (HUD.me.scaredTime > 0)
             {
-                // HUD.me.score += 200;
+                HUD.me.score += 300;
+                AudioPlayer.me.PlayGhostDeadMusic();
+
                 // ghost.Respawn();
             }
             else

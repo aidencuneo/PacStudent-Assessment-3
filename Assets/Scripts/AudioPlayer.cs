@@ -33,6 +33,9 @@ public class AudioPlayer : MonoBehaviour
 
     public void PlayScaredMusic()
     {
+        if (audioSource.clip == ghostScaredMusic)
+            return;
+
         regularMusicTime = audioSource.time;
         audioSource.clip = ghostScaredMusic;
         audioSource.Play();
@@ -40,6 +43,9 @@ public class AudioPlayer : MonoBehaviour
 
     public void PlayGhostDeadMusic()
     {
+        if (audioSource.clip == ghostDeadMusic)
+            return;
+
         audioSource.clip = ghostDeadMusic;
         audioSource.Play();
     }
