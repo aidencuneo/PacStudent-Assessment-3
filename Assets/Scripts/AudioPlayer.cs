@@ -13,12 +13,15 @@ public class AudioPlayer : MonoBehaviour
     public AudioClip ghostNormalMusic;
     public AudioClip ghostScaredMusic;
 
+    float regularMusicTime = 0;
+
     IEnumerator Start()
     {
         me = this;
 
         // Play intro music
         audioSource.clip = introMusic;
+        audioSource.loop = false;
         audioSource.Play();
 
         // Once intro music finishes, play normal music
@@ -29,13 +32,16 @@ public class AudioPlayer : MonoBehaviour
 
     public void PlayScaredMusic()
     {
+        regularMusicTime = audioSource.time;
         audioSource.clip = ghostScaredMusic;
         audioSource.Play();
     }
 
     public void PlayRegularMusic()
     {
+        audioSource.loop = true;
         audioSource.clip = ghostNormalMusic;
+        audioSource.time = regularMusicTime;
         audioSource.Play();
     }
 }
