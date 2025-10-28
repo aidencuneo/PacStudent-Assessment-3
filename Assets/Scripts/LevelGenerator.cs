@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    // Singleton
+    public static LevelGenerator me;
+
     public bool shouldGenerateLevel = true;
     public GameObject[] prefabs;
 
@@ -38,6 +38,11 @@ public class LevelGenerator : MonoBehaviour
         {2, 2, 2, 2, 2, 1, 5, 3, 3, 0, 4, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 4, 0, 0, 0},
     };
+
+    void Awake()
+    {
+        me = this;
+    }
 
     void Start()
     {
@@ -87,7 +92,7 @@ public class LevelGenerator : MonoBehaviour
         return (top, right, bottom, left);
     }
 
-    (int, int) WorldToMapPos(Vector2 pos)
+    public (int, int) WorldToMapPos(Vector2 pos)
     {
         // Convert world coordinate to map coordinate
         int x = Mathf.FloorToInt(pos.x);
@@ -99,7 +104,7 @@ public class LevelGenerator : MonoBehaviour
         return (x, y);
     }
 
-    (int, int) MapToWorldPos(int x, int y)
+    public (int, int) MapToWorldPos(int x, int y)
     {
         // Convert map coordinate to world coordinate
         x -= levelMap.GetLength(1) - 1;
@@ -108,13 +113,13 @@ public class LevelGenerator : MonoBehaviour
         return (x, y);
     }
 
-    int GetCell(Vector2 pos)
+    public int GetCell(Vector2 pos)
     {
         (int x, int y) = WorldToMapPos(pos);
         return GetCell(x, y);
     }
 
-    int GetCell(int x, int y)
+    public int GetCell(int x, int y)
     {
         // Get cell from coordinate in map, mirroring when out of bounds
 
