@@ -7,6 +7,7 @@ public class PacStudentController : MonoBehaviour
     public Animator animator;
     public AudioSource audioSource;
     public ParticleSystem dustParticleSystem;
+    public ParticleSystem wallImpactParticleSystem;
     public AudioClip footstepClip;
     public AudioClip rockEatClip;
     public AudioClip diamondCollectClip;
@@ -74,6 +75,9 @@ public class PacStudentController : MonoBehaviour
             {
                 PlaySound(wallImpactClip);
                 justCollided = true;
+
+                // Play wall impact particles
+                wallImpactParticleSystem.Play();
             }
 
             // Update animator when changing direction
