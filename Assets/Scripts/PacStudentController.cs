@@ -121,7 +121,7 @@ public class PacStudentController : MonoBehaviour
         else if (other.CompareTag("PowerPellet"))
         {
             HUD.me.score += 50;
-            HUD.me.ScareGhosts();
+            StartCoroutine(HUD.me.ScareGhosts());
             Destroy(other.gameObject);
         }
     }
@@ -146,6 +146,17 @@ public class PacStudentController : MonoBehaviour
     int GetCellType(InputType direction)
     {
         return LevelGenerator.me.GetCell(transform.position + GetDirVector(direction));
+    }
+
+    GameObject GetObjAtPos(Vector2 pos)
+    {
+        // Raycast at pos
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
+
+        if (hit.collider != null)
+            return hit.collider.gameObject;
+
+        return null;
     }
 
     IEnumerator LerpToCell(Vector2 endPos)
@@ -183,13 +194,14 @@ public class PacStudentController : MonoBehaviour
 
     void PlayEffects(InputType direction)
     {
-        // Get next cell
-        int type = GetCellType(direction);
+        // Get object at next position
+        GameObject obj = GetObjAtPos(transform.position + GetDirVector(direction));
+        string tag = obj == null ? "" : obj.tag;
 
-        AudioClip clip = type switch
+        AudioClip clip = tag switch
         {
-            5 => rockEatClip,
-            6 => rockEatClip,
+            "Rock" => rockEatClip,
+            "PowerPellet" => rockEatClip,
             _ => footstepClip,
         };
 

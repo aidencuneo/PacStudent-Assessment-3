@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370dd2968c345ca4d8b681e0b1826008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cherryPrefab: {fileID: 6305493101943264791, guid: d436e52019359e042bd6f428ea470237, type: 3}
+  cherryPrefab: {fileID: 1642888048136722568, guid: 44de20c262cd35248ac6c6598db83e96, type: 3}
 --- !u!4 &168628841
 Transform:
   m_ObjectHideFlags: 0

@@ -111,7 +111,11 @@ public class HUD : MonoBehaviour
 
     public IEnumerator ScareGhosts(int duration = 10)
     {
+        AudioPlayer.me.PlayScaredMusic();
+
         for (scaredTime = duration; scaredTime >= 0; --scaredTime)
             yield return new WaitForSeconds(1);
+
+        AudioPlayer.me.PlayRegularMusic();
     }
 }
