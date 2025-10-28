@@ -141,6 +141,22 @@ public class PacStudentController : MonoBehaviour
 
         transform.position = endPos;
         isLerping = false;
+
+        // Teleporting
+        (int x, int y) = LevelGenerator.me.WorldToMapPos(transform.position);
+
+        int w = LevelGenerator.me.realMapWidth;
+        int h = LevelGenerator.me.realMapHeight;
+
+        if (x < 0)
+            transform.position = LevelGenerator.me.MapToWorldPos(w, y);
+        else if (x >= w)
+            transform.position = LevelGenerator.me.MapToWorldPos(-1, y);
+
+        if (y < 0)
+            transform.position = LevelGenerator.me.MapToWorldPos(x, h);
+        else if (y >= h)
+            transform.position = LevelGenerator.me.MapToWorldPos(x, -1);
     }
 
     void PlayEffects(InputType direction)
