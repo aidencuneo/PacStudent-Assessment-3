@@ -331,10 +331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PacStudent
       objectReference: {fileID: 0}
-    - target: {fileID: 8300664584981193806, guid: 940faf8df366d634fb35d7f631a650cf, type: 3}
-      propertyPath: speed
-      value: 6
-      objectReference: {fileID: 0}
+    - target: {fileID: 7877335639556727017, guid: 940faf8df366d634fb35d7f631a650cf, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c44674a6e09da2b4da4087bfba8ffe51, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

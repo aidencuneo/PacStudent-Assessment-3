@@ -19,8 +19,6 @@ public class PacStudentController : MonoBehaviour
 
     void Update()
     {
-        LevelGenerator.me.GetCell(transform.position);
-
         // Get current input
         InputType playerInput = InputType.None;
 
@@ -80,7 +78,7 @@ public class PacStudentController : MonoBehaviour
         {
             float t = (Time.time - s) / duration;
             transform.position = Vector3.Lerp(startPos, endPos, t);
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
         transform.position = endPos;

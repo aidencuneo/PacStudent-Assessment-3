@@ -1,10 +1,7 @@
 {
     "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true,
+        "**/.git": true,
         "**/.vs": true,
         "**/.gitmodules": true,
         "**/.vsconfig": true,
@@ -59,9 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "PacStudent-Assessment-3.sln",
-    "hide-files.files": [],
-    "[csharp]": {
-        "editor.formatOnType": false
-    }
+    "dotnet.defaultSolution": "PacStudent-Assessment-3.sln"
 }
