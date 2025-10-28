@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PacStudentController : MonoBehaviour
 {
+    public float speed = 5f;
+
     enum InputType
     {
         None, W, A, S, D,
@@ -35,13 +37,11 @@ public class PacStudentController : MonoBehaviour
         if (playerInput != InputType.None)
             lastInput = playerInput;
 
-        Debug.Log(playerInput + ", " + lastInput + ", " + currentInput);
+        // Debug.Log(playerInput + ", " + lastInput + ", " + currentInput);
 
-        // Update current input
-        if (playerInput == InputType.None)
+        // Use last input if valid
+        if (!isLerping && CanMove(lastInput))
             currentInput = lastInput;
-        else
-            currentInput = playerInput;
 
         if (CanMove(currentInput))
             StartCoroutine(LerpToCell(transform.position + GetDirVector(currentInput)));
@@ -61,7 +61,8 @@ public class PacStudentController : MonoBehaviour
 
     bool CanMove(InputType direction)
     {
-        return LevelGenerator.me.GetCell(transform.position + GetDirVector(direction)) == 0;
+        // Debug.Log(transform.position + GetDirVector(direction) + ", " + LevelGenerator.me.GetCell(transform.position + GetDirVector(direction)));
+        return LevelGenerator.me.IsEmpty(transform.position + GetDirVector(direction));
     }
 
     IEnumerator LerpToCell(Vector2 endPos)
@@ -71,10 +72,11 @@ public class PacStudentController : MonoBehaviour
 
         isLerping = true;
         Vector3 startPos = transform.position;
+        float duration = 1 / speed; // Speed is cells per second
 
-        for (float s = Time.time; Time.time - s < 0.5f;)
+        for (float s = Time.time; Time.time - s < duration;)
         {
-            float t = (Time.time - s) / 0.5f;
+            float t = (Time.time - s) / duration;
             transform.position = Vector3.Lerp(startPos, endPos, t);
             yield return null;
         }

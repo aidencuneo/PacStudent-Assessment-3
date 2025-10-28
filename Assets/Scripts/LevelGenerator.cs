@@ -95,8 +95,8 @@ public class LevelGenerator : MonoBehaviour
     public (int, int) WorldToMapPos(Vector2 pos)
     {
         // Convert world coordinate to map coordinate
-        int x = Mathf.FloorToInt(pos.x);
-        int y = Mathf.FloorToInt(pos.y);
+        int x = Mathf.RoundToInt(pos.x);
+        int y = Mathf.RoundToInt(pos.y);
 
         x += levelMap.GetLength(1) - 1;
         y = levelMap.GetLength(0) - y - 1;
@@ -136,6 +136,18 @@ public class LevelGenerator : MonoBehaviour
             return 0;
 
         return levelMap[y, x];
+    }
+
+    public bool IsEmpty(Vector2 pos)
+    {
+        int type = GetCell(pos);
+        return type == 0 || type == 5 || type == 6;
+    }
+
+    public bool IsEmpty(int x, int y)
+    {
+        int type = GetCell(x, y);
+        return type == 0 || type == 5 || type == 6;
     }
 
     float FindRotation(int x, int y)
