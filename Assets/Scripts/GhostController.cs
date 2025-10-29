@@ -40,7 +40,14 @@ public class GhostController : MonoBehaviour
     void Update()
     {
         if (HUD.me.gameTime <= 0 || HUD.me.gameOverPanel.activeSelf)
+        {
+            // Pause animator if the game isn't running
+            animator.speed = 0;
             return;
+        }
+
+        // Animator runs while the game is on
+        animator.speed = 1;
 
         if (isLerping)
             return;
@@ -173,13 +180,77 @@ public class GhostController : MonoBehaviour
         // Random direction that maximises distance from pacstudent
         if (ghostID == 1)
         {
-            return possibleDirs[Random.Range(0, possibleDirs.Count)];
+            Vector3 playerPos = PacStudentController.me.transform.position;
+
+            Direction bestDir = possibleDirs[0];
+            float maxDist = (transform.position + GetDirVector(bestDir) - playerPos).sqrMagnitude;
+
+            // Find maximum distance
+            foreach (Direction dir in possibleDirs)
+            {
+                float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
+
+                if (dist > maxDist)
+                {
+                    maxDist = dist;
+                    bestDir = dir;
+                }
+            }
+
+            // Collect all directions with the same distance
+            List<Direction> bestDirs = new();
+
+            foreach (Direction dir in possibleDirs)
+            {
+                float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
+
+                // I'm using epsilon for approximation just in case
+                if (Mathf.Abs(maxDist - dist) < Mathf.Epsilon)
+                    bestDirs.Add(dir);
+            }
+
+            if (bestDirs.Count == 0)
+                return bestDir;
+
+            return bestDirs[Random.Range(0, bestDirs.Count)];
         }
 
         // Random direction that minimises distance to pacstudent
         else if (ghostID == 2)
         {
-            return possibleDirs[Random.Range(0, possibleDirs.Count)];
+            Vector3 playerPos = PacStudentController.me.transform.position;
+
+            Direction bestDir = possibleDirs[0];
+            float minDist = (transform.position + GetDirVector(bestDir) - playerPos).sqrMagnitude;
+
+            // Find minimum distance
+            foreach (Direction dir in possibleDirs)
+            {
+                float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
+
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    bestDir = dir;
+                }
+            }
+
+            // Collect all directions with the same distance
+            List<Direction> bestDirs = new();
+
+            foreach (Direction dir in possibleDirs)
+            {
+                float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
+
+                // I'm using epsilon for approximation just in case
+                if (Mathf.Abs(minDist - dist) < Mathf.Epsilon)
+                    bestDirs.Add(dir);
+            }
+
+            if (bestDirs.Count == 0)
+                return bestDir;
+
+            return bestDirs[Random.Range(0, bestDirs.Count)];
         }
 
         // Random direction
@@ -188,10 +259,23 @@ public class GhostController : MonoBehaviour
             return possibleDirs[Random.Range(0, possibleDirs.Count)];
         }
 
-        // Move clockwise
+        // Move clockwise around the edges of the map
         else if (ghostID == 4)
         {
-            return possibleDirs[Random.Range(0, possibleDirs.Count)];
+            // Prioritise directions in clockwise order
+            Direction[] priorityDirs = new Direction[]
+            {
+                Direction.Right,
+                Direction.Down,
+                Direction.Left,
+                Direction.Up,
+            };
+
+            foreach (Direction dir in priorityDirs)
+            {
+                if (possibleDirs.Contains(dir))
+                    return dir;
+            }
         }
 
         return Direction.Right;
