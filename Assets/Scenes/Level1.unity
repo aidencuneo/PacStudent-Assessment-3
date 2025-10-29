@@ -524,6 +524,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 416799139218684400, guid: c4c37e507f993ef4a88f49dae364e206, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 959545341225769138, guid: c4c37e507f993ef4a88f49dae364e206, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -910,6 +914,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 7e7a778bce527084c83b3320900c86d5, type: 2}
+    - target: {fileID: 4126647077630521539, guid: 0d3c6c68cb7ff114ba844f38d3817ae2, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4284158892195225824, guid: 0d3c6c68cb7ff114ba844f38d3817ae2, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1091,6 +1099,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 939875954559979906, guid: a5ae8f17a71a5b442ad42e7b77d6cd89, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2163958589767785423, guid: a5ae8f17a71a5b442ad42e7b77d6cd89, type: 3}
       propertyPath: m_Name
       value: Ghost3Canvas
@@ -1191,6 +1203,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 569537938415535612, guid: c09356d207922e040b084f8a02e9c15b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 728051109185816832, guid: c09356d207922e040b084f8a02e9c15b, type: 3}
       propertyPath: m_Name
       value: Ghost4Canvas

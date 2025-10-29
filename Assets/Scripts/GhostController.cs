@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class GhostController : MonoBehaviour
@@ -105,6 +104,12 @@ public class GhostController : MonoBehaviour
                 }
             }
 
+            // Are we out of spawn yet?
+            if ((ghostID == 1 || ghostID == 3) && transform.position.y > closestWall.y)
+                inSpawn = false;
+            else if ((ghostID == 2 || ghostID == 4) && transform.position.y < closestWall.y)
+                inSpawn = false;
+
             // Move towards closest wall
             if (transform.position.x < closestWall.x)
                 return Direction.Right;
@@ -116,10 +121,6 @@ public class GhostController : MonoBehaviour
                 return Direction.Up;
             else if (ghostID == 2 || ghostID == 4)
                 return Direction.Down;
-
-            // If this cell is a ghost exit wall, we are out of spawn
-            if (Util.GetObjAtPos(transform.position).CompareTag("GhostExitWall"))
-                inSpawn = false;
         }
 
         // Get all possibilities
@@ -137,7 +138,33 @@ public class GhostController : MonoBehaviour
         // Remove directions that can't be moved to
         possibleDirs.RemoveAll(dir => !CanMove(dir));
 
-        return Direction.Up;
+        // Unique ghost logic
+
+        // Random direction that maximises distance from pacstudent
+        if (ghostID == 1)
+        {
+            
+        }
+
+        // Random direction that minimises distance to pacstudent
+        else if (ghostID == 2)
+        {
+            
+        }
+
+        // Random direction
+        else if (ghostID == 3)
+        {
+            return possibleDirs[Random.Range(0, possibleDirs.Count)];
+        }
+
+        // Move clockwise
+        else if (ghostID == 4)
+        {
+            
+        }
+
+        return Direction.Right;
     }
 
     IEnumerator LerpToCell(Vector2 endPos)

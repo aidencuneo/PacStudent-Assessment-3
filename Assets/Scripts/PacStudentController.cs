@@ -40,6 +40,9 @@ public class PacStudentController : MonoBehaviour
     void Awake()
     {
         me = this;
+
+        // Pause animator to begin with
+        animator.speed = 0;
     }
 
     void Update()
