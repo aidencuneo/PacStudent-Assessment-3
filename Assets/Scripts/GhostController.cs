@@ -49,6 +49,13 @@ public class GhostController : MonoBehaviour
         // Animator runs while the game is on
         animator.speed = 1;
 
+        // Set animator variables
+        animator.SetBool("Scared", state == GhostState.Scared);
+        animator.SetBool("Dead", state == GhostState.Dead);
+
+        // Change ghost state if needed
+        // ...
+
         if (isLerping)
             return;
 
@@ -178,7 +185,7 @@ public class GhostController : MonoBehaviour
         // Unique ghost logic
 
         // Random direction that maximises distance from pacstudent
-        if (ghostID == 1)
+        if (ghostID == 1 || HUD.me.scaredTime > 0) // Ghost ID 1 OR scared timer on
         {
             Vector3 playerPos = PacStudentController.me.transform.position;
 
@@ -262,19 +269,99 @@ public class GhostController : MonoBehaviour
         // Move clockwise around the edges of the map
         else if (ghostID == 4)
         {
-            // Prioritise directions in clockwise order
-            Direction[] priorityDirs = new Direction[]
-            {
-                Direction.Right,
-                Direction.Down,
-                Direction.Left,
-                Direction.Up,
-            };
+            // If too close to the centre, move away
+            (int x, int y) = LevelGenerator.me.WorldToMapPos(transform.position);
+            int w = LevelGenerator.me.realMapWidth;
+            int h = LevelGenerator.me.realMapHeight;;
 
-            foreach (Direction dir in priorityDirs)
+            if (Mathf.Abs(x - w / 2) < w / 4 && Mathf.Abs(y - h / 2) < h / 4)
             {
-                if (possibleDirs.Contains(dir))
-                    return dir;
+                // Random direction that maximises distance from the centre of the map
+                Direction bestDir = possibleDirs[0];
+                float maxDist = (transform.position + GetDirVector(bestDir)).sqrMagnitude;
+
+                // Find maximum distance
+                foreach (Direction dir in possibleDirs)
+                {
+                    float dist = (transform.position + GetDirVector(dir)).sqrMagnitude;
+
+                    if (dist > maxDist)
+                    {
+                        maxDist = dist;
+                        bestDir = dir;
+                    }
+                }
+
+                // Collect all directions with the same distance
+                List<Direction> bestDirs = new();
+
+                foreach (Direction dir in possibleDirs)
+                {
+                    float dist = (transform.position + GetDirVector(dir)).sqrMagnitude;
+
+                    // I'm using epsilon for approximation just in case
+                    if (Mathf.Abs(maxDist - dist) < Mathf.Epsilon)
+                        bestDirs.Add(dir);
+                }
+
+                if (bestDirs.Count == 0)
+                    return bestDir;
+
+                return bestDirs[Random.Range(0, bestDirs.Count)];
+            }
+
+            // Otherwise, move based on quadrants
+
+            // Top left quadrant
+            if (transform.position.x < 0 && transform.position.y > 0)
+            {
+                if (possibleDirs.Contains(Direction.Up))
+                    return Direction.Up;
+                else if (possibleDirs.Contains(Direction.Right))
+                    return Direction.Right;
+                else if (possibleDirs.Contains(Direction.Left))
+                    return Direction.Left;
+                else
+                    return Direction.Down;
+            }
+
+            // Top right quadrant
+            else if (transform.position.x >= 0 && transform.position.y >= 0)
+            {
+                if (possibleDirs.Contains(Direction.Right))
+                    return Direction.Right;
+                else if (possibleDirs.Contains(Direction.Down))
+                    return Direction.Down;
+                else if (possibleDirs.Contains(Direction.Up))
+                    return Direction.Up;
+                else
+                    return Direction.Left;
+            }
+
+            // Bottom right quadrant
+            else if (transform.position.x >= 0 && transform.position.y < 0)
+            {
+                if (possibleDirs.Contains(Direction.Down))
+                    return Direction.Down;
+                else if (possibleDirs.Contains(Direction.Left))
+                    return Direction.Left;
+                else if (possibleDirs.Contains(Direction.Right))
+                    return Direction.Right;
+                else
+                    return Direction.Up;
+            }
+
+            // Bottom left quadrant
+            else
+            {
+                if (possibleDirs.Contains(Direction.Left))
+                    return Direction.Left;
+                else if (possibleDirs.Contains(Direction.Up))
+                    return Direction.Up;
+                else if (possibleDirs.Contains(Direction.Down))
+                    return Direction.Down;
+                else
+                    return Direction.Right;
             }
         }
 

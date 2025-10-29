@@ -135,19 +135,20 @@ public class PacStudentController : MonoBehaviour
 
         else if (other.CompareTag("Rock"))
         {
+            HUD.me.score += 10;
+            Destroy(other.gameObject);
+
             // Reduce pellet count and check for win
             if (--LevelGenerator.me.pelletCount <= 0)
                 StartCoroutine(HUD.me.GameOver());
-
-            HUD.me.score += 10;
-            Destroy(other.gameObject);
         }
 
         else if (other.CompareTag("PowerPellet"))
         {
             HUD.me.score += 50;
-            StartCoroutine(HUD.me.ScareGhosts());
             Destroy(other.gameObject);
+
+            StartCoroutine(HUD.me.ScareGhosts());
         }
 
         else if (other.CompareTag("Ghost"))
