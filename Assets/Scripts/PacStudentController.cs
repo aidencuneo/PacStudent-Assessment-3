@@ -124,6 +124,9 @@ public class PacStudentController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDead)
+            return;
+
         if (other.CompareTag("Diamond"))
         {
             HUD.me.score += 100;
@@ -177,6 +180,7 @@ public class PacStudentController : MonoBehaviour
         // Play death sound, animation and particle effect
         PlaySound(deathClip);
         deathParticleSystem.Play();
+        animator.speed = 1;
         animator.SetBool("Dead", true);
 
         yield return new WaitForSeconds(3f);
