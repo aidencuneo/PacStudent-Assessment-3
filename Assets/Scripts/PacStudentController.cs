@@ -163,7 +163,7 @@ public class PacStudentController : MonoBehaviour
                 StartCoroutine(ghost.Die());
             }
 
-            else
+            else if (ghost.state == GhostController.GhostState.Normal)
             {
                 // Play death sound and animation before respawning
                 StartCoroutine(Die());
