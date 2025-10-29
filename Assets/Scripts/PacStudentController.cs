@@ -153,16 +153,16 @@ public class PacStudentController : MonoBehaviour
 
         else if (other.CompareTag("Ghost"))
         {
-            // Will add this in the next section
-            // GhostController ghost = other.GetComponent<GhostController>();
+            GhostController ghost = other.GetComponent<GhostController>();
 
-            if (HUD.me.scaredTime > 0)
+            if (ghost.state == GhostController.GhostState.Scared)
             {
                 HUD.me.score += 300;
                 AudioPlayer.me.PlayGhostDeadMusic();
 
-                // ghost.Respawn();
+                StartCoroutine(ghost.Die());
             }
+
             else
             {
                 // Play death sound and animation before respawning

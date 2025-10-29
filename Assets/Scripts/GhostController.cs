@@ -7,7 +7,7 @@ public class GhostController : MonoBehaviour
     public Animator animator;
     public int ghostID = 1; // [1, 2, 3, 4]
 
-    enum GhostState
+    public enum GhostState
     {
         Normal,
         Scared,
@@ -19,7 +19,7 @@ public class GhostController : MonoBehaviour
         None, Up, Down, Left, Right,
     }
 
-    GhostState state = GhostState.Normal;
+    public GhostState state = GhostState.Normal;
 
     // Properties
     float speed => (state == GhostState.Normal ? 0.9f : 0.5f) * PacStudentController.me.speed;
@@ -49,12 +49,22 @@ public class GhostController : MonoBehaviour
         // Animator runs while the game is on
         animator.speed = 1;
 
-        // Set animator variables
-        animator.SetBool("Scared", state == GhostState.Scared);
-        animator.SetBool("Dead", state == GhostState.Dead);
-
         // Change ghost state if needed
-        // ...
+        if (HUD.me.scaredTime > 0 && state == GhostState.Normal)
+        {
+            animator.SetBool("Scared", true);
+            state = GhostState.Scared;
+        }
+
+        else if (HUD.me.scaredTime <= 0 && state == GhostState.Scared)
+        {
+            animator.SetBool("Scared", false);
+            state = GhostState.Normal;
+        }
+
+        // Recovery state
+        if (HUD.me.scaredTime <= 3 && state == GhostState.Scared)
+            animator.SetBool("Scared", HUD.me.scaredTime % 1 < 0.5f);
 
         if (isLerping)
             return;
@@ -274,7 +284,7 @@ public class GhostController : MonoBehaviour
             int w = LevelGenerator.me.realMapWidth;
             int h = LevelGenerator.me.realMapHeight;;
 
-            if (Mathf.Abs(x - w / 2) < w / 4 && Mathf.Abs(y - h / 2) < h / 4)
+            if (Mathf.Abs(x - w / 2) < w / 3 && Mathf.Abs(y - h / 2) < h / 3)
             {
                 // Random direction that maximises distance from the centre of the map
                 Direction bestDir = possibleDirs[0];
@@ -315,10 +325,10 @@ public class GhostController : MonoBehaviour
             // Top left quadrant
             if (transform.position.x < 0 && transform.position.y > 0)
             {
-                if (possibleDirs.Contains(Direction.Up))
-                    return Direction.Up;
-                else if (possibleDirs.Contains(Direction.Right))
+                if (possibleDirs.Contains(Direction.Right))
                     return Direction.Right;
+                else if (possibleDirs.Contains(Direction.Up))
+                    return Direction.Up;
                 else if (possibleDirs.Contains(Direction.Left))
                     return Direction.Left;
                 else
@@ -328,10 +338,10 @@ public class GhostController : MonoBehaviour
             // Top right quadrant
             else if (transform.position.x >= 0 && transform.position.y >= 0)
             {
-                if (possibleDirs.Contains(Direction.Right))
-                    return Direction.Right;
-                else if (possibleDirs.Contains(Direction.Down))
+                if (possibleDirs.Contains(Direction.Down))
                     return Direction.Down;
+                else if (possibleDirs.Contains(Direction.Right))
+                    return Direction.Right;
                 else if (possibleDirs.Contains(Direction.Up))
                     return Direction.Up;
                 else
@@ -341,10 +351,10 @@ public class GhostController : MonoBehaviour
             // Bottom right quadrant
             else if (transform.position.x >= 0 && transform.position.y < 0)
             {
-                if (possibleDirs.Contains(Direction.Down))
-                    return Direction.Down;
-                else if (possibleDirs.Contains(Direction.Left))
+                if (possibleDirs.Contains(Direction.Left))
                     return Direction.Left;
+                else if (possibleDirs.Contains(Direction.Down))
+                    return Direction.Down;
                 else if (possibleDirs.Contains(Direction.Right))
                     return Direction.Right;
                 else
@@ -354,10 +364,10 @@ public class GhostController : MonoBehaviour
             // Bottom left quadrant
             else
             {
-                if (possibleDirs.Contains(Direction.Left))
-                    return Direction.Left;
-                else if (possibleDirs.Contains(Direction.Up))
+                if (possibleDirs.Contains(Direction.Up))
                     return Direction.Up;
+                else if (possibleDirs.Contains(Direction.Left))
+                    return Direction.Left;
                 else if (possibleDirs.Contains(Direction.Down))
                     return Direction.Down;
                 else
@@ -383,5 +393,23 @@ public class GhostController : MonoBehaviour
 
         transform.position = endPos;
         isLerping = false;
+    }
+
+    public IEnumerator Die()
+    {
+        state = GhostState.Dead;
+        animator.SetBool("Dead", true);
+
+        Vector3 dir = -transform.position.normalized;
+        float respawnSpeed = 5;
+
+        // Move towards spawn area
+        while (transform.position.sqrMagnitude > 0.1f)
+        {
+            transform.position -= dir * respawnSpeed * Time.deltaTime;
+            yield return null;
+        }
+
+        animator.SetBool("Dead", false);
     }
 }

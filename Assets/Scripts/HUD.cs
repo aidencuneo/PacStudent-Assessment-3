@@ -26,7 +26,7 @@ public class HUD : MonoBehaviour
     // Property values
     int scoreValue = 0;
     float gameTimeValue = 0;
-    int scaredTimeValue = 0;
+    float scaredTimeValue = 0;
     int livesValue = 3;
 
     // Properties
@@ -54,7 +54,7 @@ public class HUD : MonoBehaviour
         }
     }
 
-    public int scaredTime
+    public float scaredTime
     {
         get => scaredTimeValue;
 
@@ -62,7 +62,7 @@ public class HUD : MonoBehaviour
         {
             scaredTimeValue = value;
 
-            string display = scaredTimeValue > 0 ? "" + scaredTimeValue : "";
+            string display = scaredTimeValue > 0 ? "" + Mathf.CeilToInt(scaredTimeValue) : "";
             scaredTimeText.text = $"Scared Time: <color=#ffdf12>{display}</color>";
         }
     }
@@ -129,8 +129,10 @@ public class HUD : MonoBehaviour
     {
         AudioPlayer.me.PlayScaredMusic();
 
-        for (scaredTime = duration; scaredTime >= 0; --scaredTime)
-            yield return new WaitForSeconds(1);
+        for (scaredTime = duration; scaredTime >= 0; scaredTime -= Time.deltaTime)
+            yield return null;
+
+        scaredTime = 0;
 
         AudioPlayer.me.PlayRegularMusic();
     }
