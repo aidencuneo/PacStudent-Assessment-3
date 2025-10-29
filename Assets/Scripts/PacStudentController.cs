@@ -21,13 +21,13 @@ public class PacStudentController : MonoBehaviour
 
     public float speed = 5f;
 
-    enum InputType
+    public enum InputType // public because it's used in level 2
     {
         None, W, A, S, D,
     }
 
     InputType lastInput = InputType.None;
-    InputType currentInput = InputType.None;
+    public InputType currentInput = InputType.None; // public because it's used in level 2
 
     // Currently lerping between two cells?
     bool isLerping = false;
@@ -155,7 +155,8 @@ public class PacStudentController : MonoBehaviour
         {
             GhostController ghost = other.GetComponent<GhostController>();
 
-            if (ghost.state == GhostController.GhostState.Scared)
+            // Ghosts can not be eaten in level 2
+            if (ghost.state == GhostController.GhostState.Scared && HUD.me.level == 1)
             {
                 HUD.me.score += 300;
                 AudioPlayer.me.PlayGhostDeadMusic();

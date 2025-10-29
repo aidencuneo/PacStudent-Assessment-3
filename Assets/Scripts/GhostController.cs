@@ -23,13 +23,19 @@ public class GhostController : MonoBehaviour
     public GhostState state = GhostState.Normal;
 
     // Properties
-    float speed => (state == GhostState.Normal ? 0.9f : 0.5f) * PacStudentController.me.speed;
+    float speed => HUD.me.level == 1
+        ? (state == GhostState.Normal ? 0.9f : 0.5f) * PacStudentController.me.speed // Level 1
+        : 1.25f * PacStudentController.me.speed; // Level 2
 
     // Currently lerping between two cells?
     bool isLerping = false;
 
     Direction curDir = Direction.None;
     bool inSpawn = true;
+    float lastTeleportAttempt = 0; // Level 2 feature
+
+    // Properties
+    bool playerInRange => !AwayFromPlayer(transform.position, 8);
 
     void Awake()
     {
@@ -44,6 +50,24 @@ public class GhostController : MonoBehaviour
         {
             // Pause animator if the game isn't running
             animator.speed = 0;
+            return;
+        }
+
+        // Level 2 feature
+        if (!playerInRange)
+        {
+            // Pause animator and don't move if the player is too far away
+            animator.speed = 0;
+
+            // Try teleporting (25% chance)
+            if (Time.time - lastTeleportAttempt > 3)
+            {
+                if (Random.value < 0.25f)
+                    TeleportRandom();
+
+                lastTeleportAttempt = Time.time;
+            }
+
             return;
         }
 
@@ -384,5 +408,89 @@ public class GhostController : MonoBehaviour
         // Set state back to normal
         state = GhostState.Normal;
         animator.SetBool("Dead", false);
+    }
+
+    // Level 2 feature
+    bool AwayFromPlayer(Vector3 pos, float distance)
+    {
+        return (pos - PacStudentController.me.transform.position).sqrMagnitude > distance * distance;
+    }
+
+    // Level 2 feature
+    void TeleportRandom(int attempts = 10)
+    {
+        // Find a stretch of 5 blocks in any direction from the player, starting
+        // behind, followed by the sides, then the front
+
+        Vector2 playerPos = PacStudentController.me.transform.position;
+        (int playerX, int playerY) = LevelGenerator.me.WorldToMapPos(playerPos);
+        PacStudentController.InputType playerDir = PacStudentController.me.currentInput;
+
+        List<Direction> possibleDirs = new();
+        int i;
+
+        // Left
+        for (i = 1; i < 5; ++i)
+            if (!LevelGenerator.me.IsEmpty(playerX - i, playerY))
+                break;
+        
+        if (i == 5)
+            possibleDirs.Add(Direction.Left);
+
+        // Right
+        for (i = 1; i < 5; ++i)
+            if (!LevelGenerator.me.IsEmpty(playerX + i, playerY))
+                break;
+        
+        if (i == 5)
+            possibleDirs.Add(Direction.Right);
+
+        // Up
+        for (i = 1; i < 5; ++i)
+            if (!LevelGenerator.me.IsEmpty(playerX, playerY - i))
+                break;
+        
+        if (i == 5)
+            possibleDirs.Add(Direction.Up);
+
+        // Down
+        for (i = 1; i < 5; ++i)
+            if (!LevelGenerator.me.IsEmpty(playerX, playerY + i))
+                break;
+        
+        if (i == 5)
+            possibleDirs.Add(Direction.Down);
+
+        // No valid directions?
+        if (possibleDirs.Count == 0)
+            return;
+
+        // Choose a random direction
+        Direction dir = possibleDirs[Random.Range(0, possibleDirs.Count)];
+
+        if (dir == Direction.Left)
+            transform.position = LevelGenerator.me.MapToWorldPos(playerX - 5, playerY);
+        else if (dir == Direction.Right)
+            transform.position = LevelGenerator.me.MapToWorldPos(playerX + 5, playerY);
+        else if (dir == Direction.Up)
+            transform.position = LevelGenerator.me.MapToWorldPos(playerX, playerY - 5);
+        else if (dir == Direction.Down)
+            transform.position = LevelGenerator.me.MapToWorldPos(playerX, playerY + 5);
+
+        // int x, y;
+
+        // for (int i = 0; i < attempts; ++i)
+        // {
+        //     x = Random.Range(0, LevelGenerator.me.realMapWidth - 1);
+        //     y = Random.Range(0, LevelGenerator.me.realMapHeight - 1);
+        //     Vector2 pos = LevelGenerator.me.MapToWorldPos(x, y);
+
+        //     // If valid and far enough from the player, teleport here
+        //     if (AwayFromPlayer(pos, 8) && LevelGenerator.me.IsEmpty(x, y))
+        //     {
+        //         transform.position = LevelGenerator.me.MapToWorldPos(x, y);
+        //         break;
+        //     }
+        // }
     }
 }

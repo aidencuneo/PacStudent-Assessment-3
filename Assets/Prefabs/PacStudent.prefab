@@ -302,7 +302,7 @@ MonoBehaviour:
   audioSource: {fileID: 5455964979094146703}
   dustParticleSystem: {fileID: 6004981775042843184}
   wallImpactParticleSystem: {fileID: 7271298404365417022}
-  deathParticleSystem: {fileID: 0}
+  deathParticleSystem: {fileID: 8003208678820421515}
   footstepClip: {fileID: 8300000, guid: a3a5f030ff8fc1140a1da92481cecf9c, type: 3}
   rockEatClip: {fileID: 8300000, guid: 3a8bd818eaac81642b43ddcf3f6b93c7, type: 3}
   diamondCollectClip: {fileID: 8300000, guid: 580d1e499f466be4588883b561b9615f, type: 3}

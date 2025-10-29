@@ -1,6 +1,11 @@
 - horror mode (only a little scary)
 - can only see in small area
 - immersive camera
+- ghosts can not be eaten
 - ghosts only move if player is close enough
+
+- ghosts go faster than the player
 - ghosts have 25% to teleport to random place every 3 seconds
+- diamonds stay still
 - flashlight battery?
+- change power pellets?
