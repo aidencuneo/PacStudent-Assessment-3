@@ -116,7 +116,7 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        if (startTime != -1)
+        if (startTime != -1 && lives > 0)
             gameTime = Time.unscaledTime - startTime;
     }
 
