@@ -71,7 +71,7 @@ public class LevelGenerator : MonoBehaviour
     Transform Spawn(GameObject prefab, Vector2 pos)
     {
         // Count every pellet spawned
-        if (prefab == prefabs[5])
+        if (prefab.CompareTag("Rock"))
             ++pelletCount;
 
         Transform obj = Instantiate(prefab).transform;
