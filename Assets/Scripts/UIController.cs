@@ -24,7 +24,7 @@ public class UIController : MonoBehaviour
 
     public void LoadLevel2()
     {
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene("InnovationScene");
     }
 
     void UpdateHighscores()

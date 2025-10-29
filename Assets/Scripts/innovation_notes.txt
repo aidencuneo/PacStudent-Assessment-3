@@ -1,0 +1,6 @@
+- horror mode (only a little scary)
+- can only see in small area
+- immersive camera
+- ghosts only move if player is close enough
+- ghosts have 25% to teleport to random place every 3 seconds
+- flashlight battery?
