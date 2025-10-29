@@ -5300,6 +5300,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f83883ed854a3df45a441e467753a641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level1HighscoreText: {fileID: 2083119759}
+  level2HighscoreText: {fileID: 165256104}
+  level1TimeText: {fileID: 1603517783}
+  level2TimeText: {fileID: 475762860}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
