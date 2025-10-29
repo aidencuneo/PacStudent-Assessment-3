@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -42,8 +43,9 @@ public class LevelGenerator : MonoBehaviour
     public int realMapWidth => levelMap.GetLength(1) * 2;
     public int realMapHeight => levelMap.GetLength(0) * 2 - 1;
 
-    // Keep track of the number of pellets
+    // Keep track of the number of pellets and locations of ghost exit walls
     public int pelletCount = 0;
+    public List<Vector2> ghostExitWalls = new();
 
     void Awake()
     {
@@ -73,6 +75,10 @@ public class LevelGenerator : MonoBehaviour
         // Count every pellet spawned
         if (prefab.CompareTag("Rock"))
             ++pelletCount;
+
+        // Remember ghost exit wall locations
+        else if (prefab.CompareTag("GhostExitWall"))
+            ghostExitWalls.Add(pos);
 
         Transform obj = Instantiate(prefab).transform;
         obj.SetParent(transform);

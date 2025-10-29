@@ -215,17 +215,6 @@ public class PacStudentController : MonoBehaviour
     //     return LevelGenerator.me.GetCell(transform.position + GetDirVector(direction));
     // }
 
-    GameObject GetObjAtPos(Vector2 pos)
-    {
-        // Raycast at pos
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
-
-        if (hit.collider != null)
-            return hit.collider.gameObject;
-
-        return null;
-    }
-
     IEnumerator LerpToCell(Vector2 endPos)
     {
         isLerping = true;
@@ -262,7 +251,7 @@ public class PacStudentController : MonoBehaviour
     void PlayEffects(InputType direction)
     {
         // Get object at next position
-        GameObject obj = GetObjAtPos(transform.position + GetDirVector(direction));
+        GameObject obj = Util.GetObjAtPos(transform.position + GetDirVector(direction));
         string tag = obj == null ? "" : obj.tag;
 
         AudioClip clip = tag switch

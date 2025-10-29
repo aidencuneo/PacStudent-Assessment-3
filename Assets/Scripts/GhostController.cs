@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class GhostController : MonoBehaviour
@@ -29,26 +30,6 @@ public class GhostController : MonoBehaviour
 
     Direction curDir = Direction.None;
     bool inSpawn = true;
-    List<Vector2> upperExitWalls = new();
-    List<Vector2> lowerExitWalls = new();
-
-    void Start()
-    {
-        // Locate ghost exit walls
-        GameObject[] walls = GameObject.FindGameObjectsWithTag("GhostExitWall");
-        Debug.Log(walls.Length);
-
-        foreach (GameObject wall in walls)
-        {
-            Vector2 pos = wall.transform.position;
-
-            // Is it an upper or lower wall?
-            if (pos.y > transform.position.y)
-                upperExitWalls.Add(pos);
-            else
-                lowerExitWalls.Add(pos);
-        }
-    }
 
     void Update()
     {
@@ -102,7 +83,43 @@ public class GhostController : MonoBehaviour
         // Move x first, then y
         if (inSpawn)
         {
-            Debug.Log(upperExitWalls.Count + ", " + lowerExitWalls.Count);
+            List<Vector2> walls;
+            
+            if (ghostID == 1 || ghostID == 3)
+                walls = LevelGenerator.me.ghostExitWalls.FindAll(pos => pos.y > 0);
+            else
+                walls = LevelGenerator.me.ghostExitWalls.FindAll(pos => pos.y < 0);
+
+            // Get closest wall in the x direction
+            float minDist = Mathf.Infinity;
+            Vector2 closestWall = new();
+
+            foreach (Vector2 pos in walls)
+            {
+                float dist = Mathf.Abs(pos.x - transform.position.x);
+
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    closestWall = pos;
+                }
+            }
+
+            // Move towards closest wall
+            if (transform.position.x < closestWall.x)
+                return Direction.Right;
+            else if (transform.position.x > closestWall.x)
+                return Direction.Left;
+
+            // Move up or down to leave the spawn area
+            else if (ghostID == 1 || ghostID == 3)
+                return Direction.Up;
+            else if (ghostID == 2 || ghostID == 4)
+                return Direction.Down;
+
+            // If this cell is a ghost exit wall, we are out of spawn
+            if (Util.GetObjAtPos(transform.position).CompareTag("GhostExitWall"))
+                inSpawn = false;
         }
 
         // Get all possibilities
