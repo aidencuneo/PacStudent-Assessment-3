@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PacStudentController : MonoBehaviour
 {
+    // Singleton
+    public static PacStudentController me;
+
+    // References
     public Animator animator;
     public AudioSource audioSource;
     public ParticleSystem dustParticleSystem;
@@ -32,6 +36,11 @@ public class PacStudentController : MonoBehaviour
     bool justCollided = false;
 
     bool isDead = false;
+
+    void Awake()
+    {
+        me = this;
+    }
 
     void Update()
     {
