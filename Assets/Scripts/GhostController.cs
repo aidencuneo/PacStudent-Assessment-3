@@ -66,7 +66,7 @@ public class GhostController : MonoBehaviour
         if (HUD.me.scaredTime <= 3 && state == GhostState.Scared)
             animator.SetBool("Scared", HUD.me.scaredTime % 1 < 0.5f);
 
-        if (isLerping)
+        if (isLerping || state == GhostState.Dead)
             return;
 
         // Decide direction
@@ -397,19 +397,29 @@ public class GhostController : MonoBehaviour
 
     public IEnumerator Die()
     {
+        // Stop lerping
+        StopAllCoroutines();
+        isLerping = false;
+
+        // Set state to dead
         state = GhostState.Dead;
         animator.SetBool("Dead", true);
 
+        // Move towards spawn area
         Vector3 dir = -transform.position.normalized;
         float respawnSpeed = 5;
 
-        // Move towards spawn area
-        while (transform.position.sqrMagnitude > 0.1f)
+        while (transform.position.sqrMagnitude > 0.5f)
         {
-            transform.position -= dir * respawnSpeed * Time.deltaTime;
+            transform.position += dir * respawnSpeed * Time.deltaTime;
             yield return null;
         }
 
+        transform.position = new();
+        inSpawn = true;
+
+        // Set state back to normal
+        state = GhostState.Normal;
         animator.SetBool("Dead", false);
     }
 }
