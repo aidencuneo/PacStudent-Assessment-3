@@ -210,10 +210,10 @@ public class PacStudentController : MonoBehaviour
         return LevelGenerator.me.IsEmpty(transform.position + GetDirVector(direction));
     }
 
-    int GetCellType(InputType direction)
-    {
-        return LevelGenerator.me.GetCell(transform.position + GetDirVector(direction));
-    }
+    // int GetCellType(InputType direction)
+    // {
+    //     return LevelGenerator.me.GetCell(transform.position + GetDirVector(direction));
+    // }
 
     GameObject GetObjAtPos(Vector2 pos)
     {

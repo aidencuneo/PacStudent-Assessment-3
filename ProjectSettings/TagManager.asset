@@ -8,6 +8,7 @@ TagManager:
   - PowerPellet
   - Diamond
   - Ghost
+  - GhostExitWall
   layers:
   - Default
   - TransparentFX
