@@ -17,17 +17,20 @@ public class HUD : MonoBehaviour
     public Image[] lifeImages;
     public GameObject countdownPanel;
     public TMP_Text countdownText;
+    public GameObject gameOverPanel;
+
+    public int level = 1; // 1 or 2, set in inspector
 
     float startTime = -1;
 
     // Property values
-    float scoreValue = 0;
+    int scoreValue = 0;
     float gameTimeValue = 0;
     int scaredTimeValue = 0;
     int livesValue = 3;
 
     // Properties
-    public float score
+    public int score
     {
         get => scoreValue;
 
@@ -75,10 +78,9 @@ public class HUD : MonoBehaviour
             for (int i = 0; i < lifeImages.Length; ++i)
                 lifeImages[i].enabled = i < livesValue;
 
+            // Die
             if (livesValue <= 0)
-            {
-                // Die?
-            }
+                StartCoroutine(GameOver());
         }
     }
 
@@ -131,5 +133,27 @@ public class HUD : MonoBehaviour
             yield return new WaitForSeconds(1);
 
         AudioPlayer.me.PlayRegularMusic();
+    }
+
+    public IEnumerator GameOver()
+    {
+        // Save scores
+        string levelStr = level == 1 ? "level1" : "level2";
+
+        int levelHighscore = PlayerPrefs.GetInt($"{levelStr}_highscore", 0);
+        float levelTime = PlayerPrefs.GetFloat($"{levelStr}_time", 0);
+
+        if (score > levelHighscore)
+        {
+            PlayerPrefs.SetInt($"{levelStr}_highscore", score);
+            PlayerPrefs.SetFloat($"{levelStr}_time", gameTime);
+        }
+
+        else if (score == levelHighscore && gameTime < levelTime)
+            PlayerPrefs.SetFloat($"{levelStr}_time", gameTime);
+
+        gameOverPanel.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        ExitLevel();
     }
 }

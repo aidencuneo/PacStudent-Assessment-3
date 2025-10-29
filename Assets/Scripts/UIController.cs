@@ -37,7 +37,6 @@ public class UIController : MonoBehaviour
         string level1TimeStr = Util.DisplayTime(level1Time);
         string level2TimeStr = Util.DisplayTime(level2Time);
 
-        level1Highscore = 23493;
         level1HighscoreText.text = $"Highscore: <color=#ffdf12>{level1Highscore:D6}</color>";
         level2HighscoreText.text = $"Highscore: <color=#ffdf12>{level2Highscore:D6}</color>";
         level1TimeText.text = $"Time: <color=#ffdf12>{level1TimeStr}</color>";

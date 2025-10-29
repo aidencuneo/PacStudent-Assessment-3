@@ -120,6 +120,10 @@ public class PacStudentController : MonoBehaviour
 
         else if (other.CompareTag("Rock"))
         {
+            // Reduce pellet count and check for win
+            if (--LevelGenerator.me.pelletCount <= 0)
+                StartCoroutine(HUD.me.GameOver());
+
             HUD.me.score += 10;
             Destroy(other.gameObject);
         }
@@ -167,7 +171,10 @@ public class PacStudentController : MonoBehaviour
 
         animator.SetBool("Dead", false);
 
-        // Respawn
+        // Respawn (if game isn't fully over)
+        if (HUD.me.lives <= 0)
+            yield break;
+
         lastInput = InputType.None;
         currentInput = InputType.None;
         isLerping = false;

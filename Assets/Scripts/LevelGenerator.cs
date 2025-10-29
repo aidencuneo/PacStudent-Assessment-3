@@ -42,6 +42,9 @@ public class LevelGenerator : MonoBehaviour
     public int realMapWidth => levelMap.GetLength(1) * 2;
     public int realMapHeight => levelMap.GetLength(0) * 2 - 1;
 
+    // Keep track of the number of pellets
+    public int pelletCount = 0;
+
     void Awake()
     {
         me = this;
@@ -67,9 +70,13 @@ public class LevelGenerator : MonoBehaviour
 
     Transform Spawn(GameObject prefab, Vector2 pos)
     {
+        // Count every pellet spawned
+        if (prefab == prefabs[5])
+            ++pelletCount;
+
         Transform obj = Instantiate(prefab).transform;
         obj.SetParent(transform);
-        obj.localPosition = pos; // Set local position, because this object defines the top left corner
+        obj.localPosition = pos; // Set local position
         return obj;
     }
 
