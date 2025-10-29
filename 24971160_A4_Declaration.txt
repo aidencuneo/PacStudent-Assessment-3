@@ -1,0 +1,26 @@
+# Enter the level that you believe you have achieved in Assessment 4
+# This should be in the form of: 30%, 50%, 60%, 70%, 80%, 90%, or 100%
+# If you partly did a level, remove 5% and list it as e.g. 65%
+Level Achieved: 100%
+
+# If 100%, describe your Design Innovation in a single paragraph. 
+# If you didn't complete a design innovation, leave this blank
+Design Innovation:
+
+I created a gamemode where only a small area on the screen is visible. The idea
+is that the player is mining in a cave with limited visibility, and when they
+come across power pellets, it charges up their flashlight, allowing them to see
+further. The ghosts alternate between moving in a random direction and moving
+towards the player, and they have the same speed as the player at all times.
+They are also able to teleport just out of view of the player to attempt to
+jumpscare them. Ghosts can not be killed, but they still appear scared because
+they don't like the light. This gamemode is supposed to be quite hard compared
+to the original game. Lots of other little things have been changed, such as
+diamonds spawning around the map instead of flying through it.
+
+# I certify that the attached work is my own and that it was completed
+# in accordance with UTS policies on plagiarism (avoidingplagiarism.uts.edu.au).  
+Student Name: Aiden Blishen Cuneo
+Student Number: 24971160
+
+### END FILE - Do not add anything else to this file other than the above requested ###
