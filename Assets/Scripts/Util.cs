@@ -21,4 +21,10 @@ public static class Util
 
         return null;
     }
+
+    // Level 2 feature
+    public static bool AwayFromPlayer(Vector3 pos, float distance)
+    {
+        return (pos - PacStudentController.me.transform.position).sqrMagnitude > distance * distance;
+    }
 }

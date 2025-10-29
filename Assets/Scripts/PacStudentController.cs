@@ -18,6 +18,7 @@ public class PacStudentController : MonoBehaviour
     public AudioClip diamondCollectClip;
     public AudioClip wallImpactClip;
     public AudioClip deathClip;
+    public GameObject flashlightMask; // Level 2 feature
 
     public float speed = 5f;
 
@@ -149,6 +150,10 @@ public class PacStudentController : MonoBehaviour
             Destroy(other.gameObject);
 
             StartCoroutine(HUD.me.ScareGhosts());
+
+            // Level 2 feature
+            if (HUD.me.level == 2)
+                StartCoroutine(EnableLight());
         }
 
         else if (other.CompareTag("Ghost"))
@@ -280,5 +285,17 @@ public class PacStudentController : MonoBehaviour
     void PlaySound(AudioClip clip, float volume = 0.5f)
     {
         audioSource.PlayOneShot(clip, volume);
+    }
+
+    // Level 2 feature
+    IEnumerator EnableLight()
+    {
+        Vector3 originalScale = flashlightMask.transform.localScale;
+        flashlightMask.transform.localScale = new(100, 100);
+
+        while (HUD.me.scaredTime > 0)
+            yield return null;
+
+        flashlightMask.transform.localScale = originalScale;
     }
 }

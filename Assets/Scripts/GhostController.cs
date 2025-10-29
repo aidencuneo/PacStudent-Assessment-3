@@ -25,7 +25,7 @@ public class GhostController : MonoBehaviour
     // Properties
     float speed => HUD.me.level == 1
         ? (state == GhostState.Normal ? 0.9f : 0.5f) * PacStudentController.me.speed // Level 1
-        : 1.25f * PacStudentController.me.speed; // Level 2
+        : PacStudentController.me.speed; // Level 2
 
     // Currently lerping between two cells?
     bool isLerping = false;
@@ -35,7 +35,7 @@ public class GhostController : MonoBehaviour
     float lastTeleportAttempt = 0; // Level 2 feature
 
     // Properties
-    bool playerInRange => !AwayFromPlayer(transform.position, 8);
+    bool playerInRange => !Util.AwayFromPlayer(transform.position, 10);
 
     void Awake()
     {
@@ -54,13 +54,13 @@ public class GhostController : MonoBehaviour
         }
 
         // Level 2 feature
-        if (!playerInRange)
+        if (!playerInRange && !inSpawn)
         {
             // Pause animator and don't move if the player is too far away
             animator.speed = 0;
 
-            // Try teleporting (25% chance)
-            if (Time.time - lastTeleportAttempt > 3)
+            // Try teleporting (25% chance, can't be scared)
+            if (HUD.me.scaredTime <= 0 && Time.time - lastTeleportAttempt > 3)
             {
                 if (Random.value < 0.25f)
                     TeleportRandom();
@@ -217,152 +217,172 @@ public class GhostController : MonoBehaviour
         if (possibleDirs.Count == 0)
             return OppositeDirection(curDir);
 
+        // In level 2, all ghosts randomly choose to follow ghost 2 or ghost 3's logic
+        if (HUD.me.level == 2)
+        {
+            if (Random.value < 0.5f)
+                return ChooseTowardsPlayer(possibleDirs);
+            else
+                return ChooseRandom(possibleDirs);
+        }
+
         // Unique ghost logic
 
         // Random direction that maximises distance from pacstudent
         if (ghostID == 1 || HUD.me.scaredTime > 0) // Ghost ID 1 OR scared timer on
-        {
-            Vector3 playerPos = PacStudentController.me.transform.position;
-
-            Direction bestDir = possibleDirs[0];
-            float maxDist = (transform.position + GetDirVector(bestDir) - playerPos).sqrMagnitude;
-
-            // Find maximum distance
-            foreach (Direction dir in possibleDirs)
-            {
-                float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
-
-                if (dist > maxDist)
-                {
-                    maxDist = dist;
-                    bestDir = dir;
-                }
-            }
-
-            // Collect all directions with the same distance
-            List<Direction> bestDirs = new();
-
-            foreach (Direction dir in possibleDirs)
-            {
-                float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
-
-                // I'm using epsilon for approximation just in case
-                if (Mathf.Abs(maxDist - dist) < Mathf.Epsilon)
-                    bestDirs.Add(dir);
-            }
-
-            if (bestDirs.Count == 0)
-                return bestDir;
-
-            return bestDirs[Random.Range(0, bestDirs.Count)];
-        }
+            return ChooseAwayFromPlayer(possibleDirs);
 
         // Random direction that minimises distance to pacstudent
         else if (ghostID == 2)
-        {
-            Vector3 playerPos = PacStudentController.me.transform.position;
-
-            Direction bestDir = possibleDirs[0];
-            float minDist = (transform.position + GetDirVector(bestDir) - playerPos).sqrMagnitude;
-
-            // Find minimum distance
-            foreach (Direction dir in possibleDirs)
-            {
-                float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
-
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    bestDir = dir;
-                }
-            }
-
-            // Collect all directions with the same distance
-            List<Direction> bestDirs = new();
-
-            foreach (Direction dir in possibleDirs)
-            {
-                float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
-
-                // I'm using epsilon for approximation just in case
-                if (Mathf.Abs(minDist - dist) < Mathf.Epsilon)
-                    bestDirs.Add(dir);
-            }
-
-            if (bestDirs.Count == 0)
-                return bestDir;
-
-            return bestDirs[Random.Range(0, bestDirs.Count)];
-        }
+            return ChooseTowardsPlayer(possibleDirs);
 
         // Random direction
         else if (ghostID == 3)
-        {
-            return possibleDirs[Random.Range(0, possibleDirs.Count)];
-        }
+            return ChooseRandom(possibleDirs);
 
         // Move clockwise around the edges of the map
         else if (ghostID == 4)
+            return ChooseClockwiseDirection(possibleDirs);
+
+        return Direction.Right;
+    }
+
+    Direction ChooseAwayFromPlayer(List<Direction> possibleDirs)
+    {
+        Vector3 playerPos = PacStudentController.me.transform.position;
+
+        Direction bestDir = possibleDirs[0];
+        float maxDist = (transform.position + GetDirVector(bestDir) - playerPos).sqrMagnitude;
+
+        // Find maximum distance
+        foreach (Direction dir in possibleDirs)
         {
+            float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
 
-            // Move in a circular motion depending on which edge we're in
-            float absX = Mathf.Abs(transform.position.x);
-            float absY = Mathf.Abs(transform.position.y);
-
-            // Top edge
-            if (absY >= absX && transform.position.y > 0)
+            if (dist > maxDist)
             {
-                if (possibleDirs.Contains(Direction.Up))
-                    return Direction.Up;
-                else if (possibleDirs.Contains(Direction.Right))
-                    return Direction.Right;
-                else if (possibleDirs.Contains(Direction.Down))
-                    return Direction.Down;
-                else
-                    return Direction.Left;
-            }
-
-            // Right edge
-            else if (absX >= absY && transform.position.x > 0)
-            {
-                if (possibleDirs.Contains(Direction.Right))
-                    return Direction.Right;
-                else if (possibleDirs.Contains(Direction.Down))
-                    return Direction.Down;
-                else if (possibleDirs.Contains(Direction.Left))
-                    return Direction.Left;
-                else
-                    return Direction.Up;
-            }
-
-            // Bottom edge
-            else if (absY >= absX && transform.position.y < 0)
-            {
-                if (possibleDirs.Contains(Direction.Down))
-                    return Direction.Down;
-                else if (possibleDirs.Contains(Direction.Left))
-                    return Direction.Left;
-                else if (possibleDirs.Contains(Direction.Up))
-                    return Direction.Up;
-                else
-                    return Direction.Right;
-            }
-
-            // Left edge
-            else // if (absX >= absY && transform.position.x < 0)
-            {
-                if (possibleDirs.Contains(Direction.Left))
-                    return Direction.Left;
-                else if (possibleDirs.Contains(Direction.Up))
-                    return Direction.Up;
-                else if (possibleDirs.Contains(Direction.Right))
-                    return Direction.Right;
-                else
-                    return Direction.Down;
+                maxDist = dist;
+                bestDir = dir;
             }
         }
 
-        return Direction.Right;
+        // Collect all directions with the same distance
+        List<Direction> bestDirs = new();
+
+        foreach (Direction dir in possibleDirs)
+        {
+            float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
+
+            // I'm using epsilon for approximation just in case
+            if (Mathf.Abs(maxDist - dist) < Mathf.Epsilon)
+                bestDirs.Add(dir);
+        }
+
+        if (bestDirs.Count == 0)
+            return bestDir;
+
+        return bestDirs[Random.Range(0, bestDirs.Count)];
+    }
+
+    Direction ChooseTowardsPlayer(List<Direction> possibleDirs)
+    {
+        Vector3 playerPos = PacStudentController.me.transform.position;
+
+        Direction bestDir = possibleDirs[0];
+        float minDist = (transform.position + GetDirVector(bestDir) - playerPos).sqrMagnitude;
+
+        // Find minimum distance
+        foreach (Direction dir in possibleDirs)
+        {
+            float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
+
+            if (dist < minDist)
+            {
+                minDist = dist;
+                bestDir = dir;
+            }
+        }
+
+        // Collect all directions with the same distance
+        List<Direction> bestDirs = new();
+
+        foreach (Direction dir in possibleDirs)
+        {
+            float dist = (transform.position + GetDirVector(dir) - playerPos).sqrMagnitude;
+
+            // I'm using epsilon for approximation just in case
+            if (Mathf.Abs(minDist - dist) < Mathf.Epsilon)
+                bestDirs.Add(dir);
+        }
+
+        if (bestDirs.Count == 0)
+            return bestDir;
+
+        return bestDirs[Random.Range(0, bestDirs.Count)];
+    }
+
+    Direction ChooseRandom(List<Direction> possibleDirs)
+    {
+        return possibleDirs[Random.Range(0, possibleDirs.Count)];
+    }
+
+    Direction ChooseClockwiseDirection(List<Direction> possibleDirs)
+    {
+        // Move in a circular motion depending on which edge we're in
+        float absX = Mathf.Abs(transform.position.x);
+        float absY = Mathf.Abs(transform.position.y);
+
+        // Top edge
+        if (absY >= absX && transform.position.y > 0)
+        {
+            if (possibleDirs.Contains(Direction.Up))
+                return Direction.Up;
+            else if (possibleDirs.Contains(Direction.Right))
+                return Direction.Right;
+            else if (possibleDirs.Contains(Direction.Down))
+                return Direction.Down;
+            else
+                return Direction.Left;
+        }
+
+        // Right edge
+        else if (absX >= absY && transform.position.x > 0)
+        {
+            if (possibleDirs.Contains(Direction.Right))
+                return Direction.Right;
+            else if (possibleDirs.Contains(Direction.Down))
+                return Direction.Down;
+            else if (possibleDirs.Contains(Direction.Left))
+                return Direction.Left;
+            else
+                return Direction.Up;
+        }
+
+        // Bottom edge
+        else if (absY >= absX && transform.position.y < 0)
+        {
+            if (possibleDirs.Contains(Direction.Down))
+                return Direction.Down;
+            else if (possibleDirs.Contains(Direction.Left))
+                return Direction.Left;
+            else if (possibleDirs.Contains(Direction.Up))
+                return Direction.Up;
+            else
+                return Direction.Right;
+        }
+
+        // Left edge
+        else // if (absX >= absY && transform.position.x < 0)
+        {
+            if (possibleDirs.Contains(Direction.Left))
+                return Direction.Left;
+            else if (possibleDirs.Contains(Direction.Up))
+                return Direction.Up;
+            else if (possibleDirs.Contains(Direction.Right))
+                return Direction.Right;
+            else
+                return Direction.Down;
+        }
     }
 
     IEnumerator LerpToCell(Vector2 endPos)
@@ -408,12 +428,6 @@ public class GhostController : MonoBehaviour
         // Set state back to normal
         state = GhostState.Normal;
         animator.SetBool("Dead", false);
-    }
-
-    // Level 2 feature
-    bool AwayFromPlayer(Vector3 pos, float distance)
-    {
-        return (pos - PacStudentController.me.transform.position).sqrMagnitude > distance * distance;
     }
 
     // Level 2 feature

@@ -63,7 +63,13 @@ public class HUD : MonoBehaviour
             scaredTimeValue = value;
 
             string display = scaredTimeValue > 0 ? "" + Mathf.CeilToInt(scaredTimeValue) : "";
-            scaredTimeText.text = $"Scared Time: <color=#ffdf12>{display}</color>";
+
+            if (level == 1)
+                scaredTimeText.text = $"Scared Time: <color=#ffdf12>{display}</color>";
+
+            // Level 2 feature
+            else
+                scaredTimeText.text = $"Flashlight Time: <color=#ffdf12>{display}</color>";
         }
     }
 
@@ -87,6 +93,7 @@ public class HUD : MonoBehaviour
     IEnumerator Start()
     {
         me = this;
+        scaredTime = 0; // Set text
 
         for (int i = 3; i >= 0; --i)
         {
