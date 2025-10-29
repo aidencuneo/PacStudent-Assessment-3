@@ -54,7 +54,7 @@ public class GhostController : MonoBehaviour
         }
 
         // Level 2 feature
-        if (!playerInRange && !inSpawn)
+        if (HUD.me.level == 2 && !playerInRange && !inSpawn)
         {
             // Pause animator and don't move if the player is too far away
             animator.speed = 0;

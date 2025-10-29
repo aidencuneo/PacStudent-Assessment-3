@@ -290,12 +290,11 @@ public class PacStudentController : MonoBehaviour
     // Level 2 feature
     IEnumerator EnableLight()
     {
-        Vector3 originalScale = flashlightMask.transform.localScale;
         flashlightMask.transform.localScale = new(100, 100);
 
         while (HUD.me.scaredTime > 0)
             yield return null;
 
-        flashlightMask.transform.localScale = originalScale;
+        flashlightMask.transform.localScale = new(8, 8);
     }
 }
