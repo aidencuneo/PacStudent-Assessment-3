@@ -145,3 +145,5 @@ MonoBehaviour:
   audioSource: {fileID: 353870706537152722}
   introMusic: {fileID: 8300000, guid: fd668c14d03600f4d873a7d60c3c58ac, type: 3}
   ghostNormalMusic: {fileID: 8300000, guid: 0508d9b15e20e6c4f858c189190fd79a, type: 3}
+  ghostScaredMusic: {fileID: 8300000, guid: e18d2b4219eca284683d77cf321f1746, type: 3}
+  ghostDeadMusic: {fileID: 8300000, guid: fea08c429d68e244f90eaeffacd5fcf8, type: 3}

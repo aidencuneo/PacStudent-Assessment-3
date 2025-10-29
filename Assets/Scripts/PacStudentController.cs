@@ -47,7 +47,7 @@ public class PacStudentController : MonoBehaviour
 
     void Update()
     {
-        if (isDead || HUD.me.gameTime <= 0)
+        if (isDead || HUD.me.gameTime <= 0 || HUD.me.gameOverPanel.activeSelf)
             return;
 
         // Get current input
@@ -63,7 +63,7 @@ public class PacStudentController : MonoBehaviour
             playerInput = InputType.D;
 
         // Store last input and reset collision
-        if (playerInput != InputType.None)
+        if (playerInput != InputType.None && playerInput != lastInput)
         {
             lastInput = playerInput;
             justCollided = false;
@@ -186,6 +186,7 @@ public class PacStudentController : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         animator.SetBool("Dead", false);
+        animator.SetInteger("Direction", 0); // Facing right (after respawn)
 
         // Respawn (if game isn't fully over)
         if (HUD.me.lives <= 0)

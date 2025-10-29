@@ -30,9 +30,16 @@ public class GhostController : MonoBehaviour
     Direction curDir = Direction.None;
     bool inSpawn = true;
 
+    void Awake()
+    {
+        // Set initial state for the animator
+        animator.speed = 0;
+        animator.SetInteger("Direction", 2); // Facing down
+    }
+
     void Update()
     {
-        if (HUD.me.gameTime <= 0)
+        if (HUD.me.gameTime <= 0 || HUD.me.gameOverPanel.activeSelf)
             return;
 
         if (isLerping)
@@ -40,6 +47,16 @@ public class GhostController : MonoBehaviour
 
         // Decide direction
         Direction nextDir = ChooseDirection();
+
+        // Animate
+        animator.SetInteger("Direction", nextDir switch
+        {
+            Direction.Right => 0,
+            Direction.Down => 1,
+            Direction.Left => 2,
+            Direction.Up => 3,
+            _ => -1,
+        });
 
         // Move
         StartCoroutine(LerpToCell(transform.position + GetDirVector(nextDir)));
@@ -62,7 +79,16 @@ public class GhostController : MonoBehaviour
 
     bool CanMove(Direction direction)
     {
-        return LevelGenerator.me.IsEmpty(transform.position + GetDirVector(direction));
+        (int x, int y) = LevelGenerator.me.WorldToMapPos(transform.position + GetDirVector(direction));
+        int w = LevelGenerator.me.realMapWidth;
+        int h = LevelGenerator.me.realMapHeight;
+
+        // Is this position inside the map?
+        if (x < 0 || x >= w || y < 0 || y >= h)
+            return false;
+
+        // Is this position empty?
+        return LevelGenerator.me.IsEmpty(x, y);
     }
 
     Direction OppositeDirection(Direction direction)
@@ -105,9 +131,9 @@ public class GhostController : MonoBehaviour
             }
 
             // Are we out of spawn yet?
-            if ((ghostID == 1 || ghostID == 3) && transform.position.y > closestWall.y)
+            if ((ghostID == 1 || ghostID == 3) && transform.position.y >= closestWall.y)
                 inSpawn = false;
-            else if ((ghostID == 2 || ghostID == 4) && transform.position.y < closestWall.y)
+            else if ((ghostID == 2 || ghostID == 4) && transform.position.y <= closestWall.y)
                 inSpawn = false;
 
             // Move towards closest wall
@@ -138,18 +164,22 @@ public class GhostController : MonoBehaviour
         // Remove directions that can't be moved to
         possibleDirs.RemoveAll(dir => !CanMove(dir));
 
+        // If directions is now empty, backstep (this must be a dead end)
+        if (possibleDirs.Count == 0)
+            return OppositeDirection(curDir);
+
         // Unique ghost logic
 
         // Random direction that maximises distance from pacstudent
         if (ghostID == 1)
         {
-            
+            return possibleDirs[Random.Range(0, possibleDirs.Count)];
         }
 
         // Random direction that minimises distance to pacstudent
         else if (ghostID == 2)
         {
-            
+            return possibleDirs[Random.Range(0, possibleDirs.Count)];
         }
 
         // Random direction
@@ -161,7 +191,7 @@ public class GhostController : MonoBehaviour
         // Move clockwise
         else if (ghostID == 4)
         {
-            
+            return possibleDirs[Random.Range(0, possibleDirs.Count)];
         }
 
         return Direction.Right;
@@ -182,21 +212,5 @@ public class GhostController : MonoBehaviour
 
         transform.position = endPos;
         isLerping = false;
-
-        // Teleporting
-        (int x, int y) = LevelGenerator.me.WorldToMapPos(transform.position);
-
-        int w = LevelGenerator.me.realMapWidth;
-        int h = LevelGenerator.me.realMapHeight;
-
-        if (x < 0)
-            transform.position = LevelGenerator.me.MapToWorldPos(w, y);
-        else if (x >= w)
-            transform.position = LevelGenerator.me.MapToWorldPos(-1, y);
-
-        if (y < 0)
-            transform.position = LevelGenerator.me.MapToWorldPos(x, h);
-        else if (y >= h)
-            transform.position = LevelGenerator.me.MapToWorldPos(x, -1);
     }
 }

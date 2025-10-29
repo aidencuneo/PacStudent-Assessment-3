@@ -881,10 +881,6 @@ PrefabInstance:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5312896919370170000, guid: a91adbb32f225424294373cc176a892c, type: 3}
-      propertyPath: ghostScaredMusic
-      value: 
-      objectReference: {fileID: 8300000, guid: e18d2b4219eca284683d77cf321f1746, type: 3}
     - target: {fileID: 9181111492138688918, guid: a91adbb32f225424294373cc176a892c, type: 3}
       propertyPath: m_Name
       value: AudioPlayer
